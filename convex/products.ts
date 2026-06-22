@@ -27,11 +27,38 @@ export const listAvailable = query({
   },
 });
 
+export const listLive = query({
+  args: {},
+  handler: async (ctx) => {
+    const products = await ctx.db.query("products").collect();
+    return products.filter((p) => {
+      if (!p.isAvailable || p.isMadeToOrder) return false;
+      if (p.stockQuantity !== undefined && p.stockQuantity <= 0) return false;
+      return true;
+    });
+  },
+});
+
 export const listMadeToOrder = query({
   args: {},
   handler: async (ctx) => {
     const products = await ctx.db.query("products").collect();
-    return products.filter((p) => p.isMadeToOrder);
+    return products.filter((p) => p.isMadeToOrder && p.isAvailable);
+  },
+});
+
+export const listGallery = query({
+  args: {},
+  handler: async (ctx) => {
+    const products = await ctx.db.query("products").collect();
+    return products
+      .filter((p) => p.isAvailable && p.imageUrl)
+      .map((p) => ({
+        id: p._id,
+        src: p.imageUrl!,
+        alt: p.name,
+        objectPosition: p.imagePosition ?? "center",
+      }));
   },
 });
 
@@ -67,7 +94,12 @@ export const create = mutation({
     name: v.string(),
     categoryId: v.id("categories"),
     description: v.optional(v.string()),
+    longDescription: v.optional(v.string()),
+    portion: v.optional(v.string()),
     price: v.number(),
+    pricePerKg: v.optional(v.number()),
+    imageUrl: v.optional(v.string()),
+    imagePosition: v.optional(v.string()),
     isAvailable: v.boolean(),
     isMadeToOrder: v.boolean(),
     stockQuantity: v.optional(v.number()),
@@ -91,7 +123,12 @@ export const create = mutation({
       slug,
       categoryId: args.categoryId,
       description: args.description?.trim() || undefined,
+      longDescription: args.longDescription?.trim() || undefined,
+      portion: args.portion?.trim() || undefined,
       price: args.price,
+      pricePerKg: args.pricePerKg,
+      imageUrl: args.imageUrl?.trim() || undefined,
+      imagePosition: args.imagePosition?.trim() || undefined,
       isAvailable: args.isAvailable,
       isMadeToOrder: args.isMadeToOrder,
       stockQuantity: args.isMadeToOrder ? undefined : args.stockQuantity,
@@ -105,7 +142,12 @@ export const update = mutation({
     name: v.string(),
     categoryId: v.id("categories"),
     description: v.optional(v.string()),
+    longDescription: v.optional(v.string()),
+    portion: v.optional(v.string()),
     price: v.number(),
+    pricePerKg: v.optional(v.number()),
+    imageUrl: v.optional(v.string()),
+    imagePosition: v.optional(v.string()),
     isAvailable: v.boolean(),
     isMadeToOrder: v.boolean(),
     stockQuantity: v.optional(v.number()),
@@ -129,7 +171,12 @@ export const update = mutation({
       slug,
       categoryId: args.categoryId,
       description: args.description?.trim() || undefined,
+      longDescription: args.longDescription?.trim() || undefined,
+      portion: args.portion?.trim() || undefined,
       price: args.price,
+      pricePerKg: args.pricePerKg,
+      imageUrl: args.imageUrl?.trim() || undefined,
+      imagePosition: args.imagePosition?.trim() || undefined,
       isAvailable: args.isAvailable,
       isMadeToOrder: args.isMadeToOrder,
       stockQuantity: args.isMadeToOrder ? undefined : args.stockQuantity,

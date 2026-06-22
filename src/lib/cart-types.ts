@@ -11,6 +11,7 @@ export type CartItem = {
   quantity: number;
   imagePosition?: string;
   productType: ProductType;
+  convexId?: string;
 };
 
 export type CartState = {

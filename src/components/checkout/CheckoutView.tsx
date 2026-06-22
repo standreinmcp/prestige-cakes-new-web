@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import type { Id } from "../../../convex/_generated/dataModel";
 import { useCart } from "@/components/cart/CartProvider";
 import {
   OrderSummary,
@@ -172,6 +173,9 @@ export function CheckoutView({
           locality: fulfillment === "delivery" ? locality : undefined,
           notes: orderNotes.trim() || undefined,
           items: items.map((item) => ({
+            ...(item.convexId
+              ? { productId: item.convexId as Id<"products"> }
+              : {}),
             productName: item.name,
             quantity: item.quantity,
             unitPrice: item.price,
@@ -229,6 +233,7 @@ export function CheckoutView({
             total,
             customerEmail: email.trim() || undefined,
             orderId,
+            orderNumber,
           }),
         });
         const stripeData = (await stripeRes.json()) as {

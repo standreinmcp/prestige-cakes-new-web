@@ -12,9 +12,10 @@ type CatalogPageProps = {
   title: string;
   subtitle: string;
   products: ProductCardData[];
+  showQuickAdd?: boolean;
 };
 
-export function CatalogPage({ title, subtitle, products }: CatalogPageProps) {
+export function CatalogPage({ title, subtitle, products, showQuickAdd }: CatalogPageProps) {
   const [filter, setFilter] = useState<CatalogFilterId>("popular");
 
   const filtered =
@@ -63,7 +64,11 @@ export function CatalogPage({ title, subtitle, products }: CatalogPageProps) {
       <section className="bg-white px-6 pb-20 lg:px-12">
         <div className="mx-auto grid max-w-[1062px] justify-items-center gap-x-[34px] gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {filtered.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              showQuickAdd={showQuickAdd}
+            />
           ))}
         </div>
       </section>

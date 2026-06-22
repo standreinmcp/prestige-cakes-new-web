@@ -30,8 +30,10 @@ export function ProductDetailView({ product, similar }: ProductDetailViewProps) 
   const router = useRouter();
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const unitPrice = unitPriceFromKg(product.pricePerKg, product.portion);
+  const unitPrice =
+    product.unitPrice ?? unitPriceFromKg(product.pricePerKg, product.portion);
   const lineTotal = (unitPrice * quantity).toFixed(2);
+  const imageSrc = product.imageUrl ?? "/images/home/categories.jpg";
 
   const handleAddToCart = () => {
     addItem({
@@ -42,6 +44,7 @@ export function ProductDetailView({ product, similar }: ProductDetailViewProps) 
       quantity,
       imagePosition: product.imagePosition,
       productType: product.productType ?? "live",
+      convexId: product.convexId,
     });
     router.push("/cos");
   };
@@ -64,7 +67,7 @@ export function ProductDetailView({ product, similar }: ProductDetailViewProps) 
         <div className="mx-auto grid max-w-[1189px] gap-12 lg:grid-cols-[506px_1fr]">
           <div className="relative aspect-square overflow-hidden rounded-[40px] shadow-[0_8px_20px_rgba(0,0,0,0.12)]">
             <Image
-              src="/images/home/categories.jpg"
+              src={imageSrc}
               alt={product.name}
               fill
               className="object-cover"

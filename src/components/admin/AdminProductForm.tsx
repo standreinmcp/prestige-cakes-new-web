@@ -29,6 +29,7 @@ export function AdminProductForm({ productId }: ProductFormProps) {
   const [isMadeToOrder, setIsMadeToOrder] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [stockQuantity, setStockQuantity] = useState("10");
+  const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
@@ -41,6 +42,7 @@ export function AdminProductForm({ productId }: ProductFormProps) {
     setIsMadeToOrder(existing.isMadeToOrder);
     setIsAvailable(existing.isAvailable);
     setStockQuantity(String(existing.stockQuantity ?? 0));
+    setImageUrl(existing.imageUrl ?? "");
   }, [existing]);
 
   useEffect(() => {
@@ -78,6 +80,7 @@ export function AdminProductForm({ productId }: ProductFormProps) {
       isAvailable,
       isMadeToOrder,
       stockQuantity: isMadeToOrder ? undefined : Number(stockQuantity),
+      imageUrl: imageUrl.trim() || undefined,
     };
 
     try {
@@ -178,6 +181,15 @@ export function AdminProductForm({ productId }: ProductFormProps) {
             />
           </AdminField>
         )}
+
+        <AdminField label="URL imagine (galerie)">
+          <input
+            className={adminInputClass}
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="/images/home/categories.jpg"
+          />
+        </AdminField>
 
         <label className="flex items-center gap-2 text-sm text-brand-navy">
           <input

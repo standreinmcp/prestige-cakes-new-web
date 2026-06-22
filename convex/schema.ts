@@ -42,11 +42,23 @@ export default defineSchema({
     slug: v.string(),
     categoryId: v.id("categories"),
     description: v.optional(v.string()),
+    longDescription: v.optional(v.string()),
+    portion: v.optional(v.string()),
     price: v.number(),
+    pricePerKg: v.optional(v.number()),
     imageUrl: v.optional(v.string()),
+    imagePosition: v.optional(v.string()),
     isAvailable: v.boolean(),
     isMadeToOrder: v.boolean(),
     stockQuantity: v.optional(v.number()),
+    nutrition: v.optional(
+      v.object({
+        calories: v.string(),
+        protein: v.string(),
+        carbs: v.string(),
+        fat: v.string(),
+      }),
+    ),
   })
     .index("by_slug", ["slug"])
     .index("by_category", ["categoryId"]),
