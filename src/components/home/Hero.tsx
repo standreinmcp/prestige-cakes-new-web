@@ -1,6 +1,16 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { ChevronRightIcon, WavyCheckIcon } from "@/components/icons";
+
+const heroImages = [
+  { src: "/images/home/hero.jpg", alt: "Deserturi artizanale Prestige Cakes" },
+  { src: "/images/home/kitchen.jpg", alt: "Laboratorul Prestige Cakes" },
+  { src: "/images/home/categories.jpg", alt: "Selecție de prăjituri" },
+];
 
 const stats = [
   { value: "100 %", label: "Ingrediente naturale" },
@@ -9,16 +19,30 @@ const stats = [
 ];
 
 export function Hero() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveIndex((i) => (i + 1) % heroImages.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <section className="relative min-h-[945px] overflow-hidden">
-      <Image
-        src="/images/home/hero.jpg"
-        alt="Deserturi artizanale Prestige Cakes"
-        fill
-        priority
-        className="object-cover"
-        sizes="100vw"
-      />
+      {heroImages.map((image, index) => (
+        <Image
+          key={image.src}
+          src={image.src}
+          alt={image.alt}
+          fill
+          priority={index === 0}
+          className={`object-cover transition-opacity duration-1000 ${
+            index === activeIndex ? "opacity-100" : "opacity-0"
+          }`}
+          sizes="100vw"
+        />
+      ))}
       <div className="absolute inset-0 bg-brand-navy/55" />
 
       <div className="relative mx-auto flex max-w-[741px] flex-col items-center px-6 pt-[234px] text-center lg:px-0">
@@ -54,6 +78,17 @@ export function Hero() {
           </Button>
         </div>
       </div>
+
+      <a
+        href="#categorii"
+        className="absolute bottom-36 left-1/2 z-10 flex -translate-x-1/2 animate-bounce flex-col items-center text-white/90 hover:text-brand-gold"
+        aria-label="Derulează la categorii"
+      >
+        <span className="text-sm font-medium">Descoperă</span>
+        <span className="text-2xl" aria-hidden>
+          ↓
+        </span>
+      </a>
 
       <div className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-brand-navy/40 backdrop-blur-sm">
         <div className="mx-auto flex max-w-[883px] items-center justify-center px-6 py-10">

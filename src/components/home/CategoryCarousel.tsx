@@ -47,7 +47,7 @@ export function CategoryCarousel() {
     setActiveIndex((current) => (current === categories.length - 1 ? 0 : current + 1));
 
   return (
-    <section className="bg-gradient-to-b from-white to-[#fcfcff] py-16 lg:py-24">
+    <section id="categorii" className="bg-gradient-to-b from-white to-[#fcfcff] py-16 lg:py-24">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <SectionHeader
           badge="Produsele noastre"

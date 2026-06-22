@@ -23,7 +23,9 @@ export function MainNav({ variant = "default" }: MainNavProps) {
       }
     >
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-[30px] lg:px-[94px]">
-        <Logo variant={isHero ? "light" : "dark"} size={isHero ? 83 : 52} />
+        <div className={isHero ? "hidden lg:block" : ""}>
+          <Logo variant={isHero ? "light" : "dark"} size={isHero ? 83 : 52} />
+        </div>
 
         <nav
           className="hidden items-center gap-[22px] lg:flex"

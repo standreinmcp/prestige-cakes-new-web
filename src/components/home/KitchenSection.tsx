@@ -25,9 +25,15 @@ export function KitchenSection() {
               premium în opere de artă culinară, zilnic, cu dedicare și precizie.
             </p>
           </div>
-          <Button variant="navy" className="mt-5 w-full max-w-[316px]">
-            Fă-ne o vizită
-          </Button>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Aleea+Dobrogei+1+Baia+Mare"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="navy" className="mt-5 w-full max-w-[316px]">
+              Fă-ne o vizită
+            </Button>
+          </a>
         </div>
 
         <div className="relative min-h-[320px] overflow-hidden rounded-[40px] shadow-[0_8px_20px_rgba(0,0,0,0.12)] lg:min-h-[477px]">
