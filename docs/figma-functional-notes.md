@@ -85,16 +85,16 @@ Status reflects codebase as of v0.1.8.
 
 | P | Area | Key requirements | Status |
 |---|------|------------------|--------|
-| **P0** | **Data model** | Product type, stock, order + sub-order schema, status enums | Partial |
-| **P0** | **Split order** | Detect mixed cart; choice at `/cos`; sub-orders; checkout dual-package summary | Partial |
-| **P0** | **Checkout** | Stripe vs cash, dynamic CTA, delivery fee after locality, sticky summary | Partial |
-| **P1** | **PDP** | Show product type + lead time before add-to-cart | Partial |
-| **P1** | **Vitrină stock** | Hide/disable out-of-stock live products | Not done |
-| **P1** | **Pickup / maps** | Google Maps link behavior | Not done |
+| **P0** | **Data model** | Product type, stock, order + sub-order schema, status enums | Done (v0.1.9) |
+| **P0** | **Split order** | Detect mixed cart; choice at `/cos`; sub-orders; checkout dual-package summary | Done (v0.1.9) |
+| **P0** | **Checkout** | Stripe vs cash, dynamic CTA, delivery fee after locality, sticky summary | Partial — Stripe stub (v0.2.1) |
+| **P1** | **PDP** | Show product type + lead time before add-to-cart | Done (v0.1.9) |
+| **P1** | **Vitrină stock** | Hide/disable out-of-stock live products | Done (v0.2.0) |
+| **P1** | **Pickup / maps** | Google Maps link behavior | Done (v0.1.9) |
 | **P2** | **Product cards** | Hover/tap states, add-to-cart feedback, size vs PDP | Partial |
 | **P2** | **Homepage** | Hero carousel, scroll CTA, maps, mobile nav | Partial |
 | **P2** | **Catalog copy** | Produse la comandă microcopy ≠ Vitrină live | Partial |
-| **P3** | **Admin** | Dashboard widgets, full CRUD, order status UI, split sub-sections | Stubs |
+| **P3** | **Admin** | Dashboard widgets, full CRUD, order status UI, split sub-sections | Partial — dashboard + orders (v0.2.3) |
 | **P3** | **Gallery sync** | Product image → public gallery (Figma) | Not done |
 | **—** | **Email UI** | Figma: „n-avem mailuri” | Out of scope v1 |
 | **TBD** | **Notifications** | Designer doc: notify on status changes — channel undefined | Future |
