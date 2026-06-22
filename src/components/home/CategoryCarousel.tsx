@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRightIcon, CaretCircleIcon } from "@/components/icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { cardGoldAccent, interactiveCardShell } from "@/lib/card-surface";
 
 const categories = [
   {
@@ -71,18 +72,14 @@ export function CategoryCarousel() {
               return (
                 <article
                   key={category.slug}
-                  className={`flex flex-col overflow-hidden rounded-[22px] bg-white transition-shadow ${
-                    isFeatured
-                      ? "border border-brand-gold shadow-[0_20px_16px_rgba(0,0,0,0.22)]"
-                      : "shadow-[0_8px_10px_rgba(0,0,0,0.12)]"
-                  }`}
+                  className={`group flex flex-col ${interactiveCardShell(isFeatured)}`}
                 >
-                  <div className="relative h-60 overflow-hidden rounded-t-[22px]">
+                  <div className="relative h-60 overflow-hidden">
                     <Image
                       src="/images/home/categories.jpg"
                       alt={category.name}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
                       style={{ objectPosition: category.imagePosition }}
                       sizes="(max-width: 768px) 100vw, 240px"
                     />
@@ -96,15 +93,13 @@ export function CategoryCarousel() {
                     </p>
                     <Link
                       href={`/vitrina-live?categorie=${category.slug}`}
-                      className="inline-flex items-center gap-2 py-2.5 text-base font-medium text-brand-gold"
+                      className="inline-flex items-center gap-2 py-2.5 text-base font-medium text-brand-gold transition-transform duration-300 group-hover:gap-3"
                     >
                       Vezi tot
                       <ArrowRightIcon />
                     </Link>
                   </div>
-                  {isFeatured ? (
-                    <div className="h-1 bg-gradient-to-r from-white via-brand-gold to-white" />
-                  ) : null}
+                  <div className={cardGoldAccent(isFeatured)} aria-hidden />
                 </article>
               );
             })}

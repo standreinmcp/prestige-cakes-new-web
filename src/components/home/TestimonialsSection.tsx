@@ -1,4 +1,5 @@
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { cardGoldAccent, interactiveCardShell } from "@/lib/card-surface";
 
 const testimonials = [
   {
@@ -47,11 +48,7 @@ export function TestimonialsSection() {
           {testimonials.map((item) => (
             <article
               key={item.name}
-              className={`relative flex h-[262px] flex-col overflow-hidden rounded-[22px] bg-white p-[26px] ${
-                item.featured
-                  ? "border border-border-card shadow-[0_20px_32px_rgba(0,0,0,0.22)]"
-                  : "border border-border-card shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
-              }`}
+              className={`group relative flex h-[262px] flex-col p-[26px] ${interactiveCardShell(item.featured)}`}
             >
               <span
                 className="pointer-events-none absolute right-4 top-[-10px] font-serif text-7xl text-brand-gold/15"
@@ -74,6 +71,10 @@ export function TestimonialsSection() {
                   <p className="text-sm text-text-muted">{item.role}</p>
                 </div>
               </div>
+              <div
+                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent(item.featured)}`}
+                aria-hidden
+              />
             </article>
           ))}
         </div>

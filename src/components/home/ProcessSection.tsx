@@ -1,4 +1,5 @@
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { cardGoldAccent, interactiveCardShell } from "@/lib/card-surface";
 
 const steps = [
   {
@@ -41,11 +42,7 @@ export function ProcessSection() {
           {steps.map((step) => (
             <article
               key={step.number}
-              className={`relative h-[269px] overflow-hidden rounded-[22px] bg-white p-7 ${
-                step.featured
-                  ? "border border-brand-gold shadow-[0_20px_32px_rgba(0,0,0,0.22)]"
-                  : "border border-border-card shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
-              }`}
+              className={`group relative flex h-[269px] flex-col p-7 ${interactiveCardShell(step.featured)}`}
             >
               <span
                 className={`pointer-events-none absolute right-4 top-[-20px] font-serif text-[128px] font-semibold leading-none ${
@@ -69,9 +66,10 @@ export function ProcessSection() {
                 </p>
               </div>
 
-              {step.featured ? (
-                <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-white via-brand-gold to-white" />
-              ) : null}
+              <div
+                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent(step.featured)}`}
+                aria-hidden
+              />
             </article>
           ))}
         </div>

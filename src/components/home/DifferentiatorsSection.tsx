@@ -1,4 +1,5 @@
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { trustTileIconShell, trustTileShell } from "@/lib/card-surface";
 
 const items = [
   {
@@ -37,15 +38,9 @@ export function DifferentiatorsSection() {
           {items.map((item) => (
             <article
               key={item.title}
-              className={`flex min-h-[122px] items-start gap-6 rounded-[22px] bg-white p-6 ${
-                item.featured
-                  ? "border border-brand-gold shadow-[0_20px_32px_rgba(0,0,0,0.22)]"
-                  : "border border-border-card shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
-              }`}
+              className={`flex min-h-[122px] items-start gap-6 ${trustTileShell(item.featured)}`}
             >
-              <span className="flex h-[70px] w-[70px] shrink-0 items-center justify-center rounded-2xl bg-icon-cream text-2xl">
-                {item.icon}
-              </span>
+              <span className={trustTileIconShell()}>{item.icon}</span>
               <div>
                 <h3 className="font-serif text-[22px] font-semibold text-brand-navy">
                   {item.title}
