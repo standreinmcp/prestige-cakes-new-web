@@ -1,10 +1,5 @@
-import { PageHeader } from "@/components/layout/PageHeader";
+import { AboutContent } from "@/components/about/AboutContent";
 
 export default function DespreNoiPage() {
-  return (
-    <PageHeader
-      title="Despre noi"
-      description="Pasiunea noastră pentru deserturi artizanale, de peste 15 ani."
-    />
-  );
+  return <AboutContent />;
 }
