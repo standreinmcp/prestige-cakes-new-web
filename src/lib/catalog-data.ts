@@ -1,0 +1,106 @@
+import type { ProductCardData } from "@/components/catalog/ProductCard";
+
+/** Static catalog data from Figma frame `2075:117` */
+export const vitrinaProducts: ProductCardData[] = [
+  {
+    slug: "croissant-cu-fistic",
+    name: "Croissant cu fistic",
+    description: "Croissant franțuzesc cu fistic proaspăt...",
+    portion: "70 g / o bucată.",
+    priceLabel: "85 lei / kg",
+    imagePosition: "0% 0%",
+  },
+  {
+    slug: "cozonac-cu-ciocolata",
+    name: "Cozonac cu cicolată",
+    description: "Cozonac cu nucă și cacao, rețetă...",
+    portion: "500 g / o bucată.",
+    priceLabel: "75 lei / kg",
+    imagePosition: "33% 0%",
+    featured: true,
+  },
+  {
+    slug: "choux-cu-vanilie",
+    name: "Choux cu vanilie",
+    description: "Choux umplut cu cremă de vanilie naturală...",
+    portion: "250 g.",
+    priceLabel: "110 lei / kg",
+    imagePosition: "66% 0%",
+  },
+  {
+    slug: "tarte-cu-fructe",
+    name: "Tarte cu fructe",
+    description: "Tarte artizanale cu fructe proaspete de...",
+    portion: "70 g / o bucată.",
+    priceLabel: "140 lei / kg",
+    imagePosition: "100% 0%",
+  },
+  {
+    slug: "croissant-cu-fistic-2",
+    name: "Croissant cu fistic",
+    description: "Croissant franțuzesc cu fistic proaspăt...",
+    portion: "70 g / o bucată.",
+    priceLabel: "85 lei / kg",
+    imagePosition: "0% 50%",
+  },
+  {
+    slug: "tarte-cu-fructe-2",
+    name: "Tarte cu fructe",
+    description: "Tarte artizanale cu fructe proaspete de...",
+    portion: "70 g / o bucată.",
+    priceLabel: "140 lei / kg",
+    imagePosition: "100% 50%",
+  },
+  {
+    slug: "choux-cu-vanilie-2",
+    name: "Choux cu vanilie",
+    description: "Choux umplut cu cremă de vanilie naturală...",
+    portion: "250 g.",
+    priceLabel: "110 lei / kg",
+    imagePosition: "66% 50%",
+  },
+  {
+    slug: "cozonac-cu-ciocolata-2",
+    name: "Cozonac cu cicolată",
+    description: "Cozonac cu nucă și cacao, rețetă...",
+    portion: "500 g / o bucată.",
+    priceLabel: "75 lei / kg",
+    imagePosition: "33% 50%",
+  },
+];
+
+export const madeToOrderProducts: ProductCardData[] = [
+  {
+    slug: "tort-nunta-vanilie",
+    name: "Tort de nuntă vanilie",
+    description: "Tort personalizat cu creme fine și decor elegant...",
+    portion: "2 kg / tort.",
+    priceLabel: "180 lei / kg",
+    imagePosition: "center",
+  },
+  {
+    slug: "tort-aniversare-ciocolata",
+    name: "Tort aniversare ciocolată",
+    description: "Tort cu ciocolată belgiană și fructe proaspete...",
+    portion: "1.5 kg / tort.",
+    priceLabel: "165 lei / kg",
+    imagePosition: "25% 25%",
+    featured: true,
+  },
+  {
+    slug: "candy-bar-premium",
+    name: "Candy bar premium",
+    description: "Selecție variată de prăjituri pentru evenimente...",
+    portion: "Minim 30 persoane.",
+    priceLabel: "Ofertă personalizată",
+    imagePosition: "75% 25%",
+  },
+  {
+    slug: "cozonac-traditional",
+    name: "Cozonac tradițional",
+    description: "Cozonac artizanal cu nucă, cacao și stafide...",
+    portion: "1 kg / bucată.",
+    priceLabel: "95 lei / kg",
+    imagePosition: "50% 75%",
+  },
+];
