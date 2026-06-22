@@ -8,11 +8,13 @@ import {
 } from "@/components/catalog/CategoryFilter";
 import { ProductCard, type ProductCardData } from "@/components/catalog/ProductCard";
 
-type VitrinaCatalogProps = {
+type CatalogPageProps = {
+  title: string;
+  subtitle: string;
   products: ProductCardData[];
 };
 
-export function VitrinaCatalog({ products }: VitrinaCatalogProps) {
+export function CatalogPage({ title, subtitle, products }: CatalogPageProps) {
   const [filter, setFilter] = useState<CatalogFilterId>("popular");
 
   const filtered =
@@ -46,11 +48,9 @@ export function VitrinaCatalog({ products }: VitrinaCatalogProps) {
         <div className="absolute inset-0 bg-brand-navy/60" />
         <div className="relative mx-auto flex h-full max-w-[984px] flex-col justify-end px-6 pb-10 pt-24 lg:px-0">
           <h1 className="font-serif text-4xl font-semibold text-white lg:text-[36px]">
-            Produsele noastere artizanale, create cu rafinament
+            {title}
           </h1>
-          <p className="mt-3 text-lg font-medium text-neutral-soft">
-            Prăjituri proaspete, realizate zilnic din ingrediente atent alese.
-          </p>
+          <p className="mt-3 text-lg font-medium text-neutral-soft">{subtitle}</p>
         </div>
       </section>
 
