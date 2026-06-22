@@ -1,0 +1,24 @@
+/**
+ * Prestige Cakes — design tokens extracted from Figma
+ * Source: https://www.figma.com/design/5spQSIosKMtvvI1k0Zkzib/Prestige-Cakes
+ * Frames: Colors (2003:19), homepage (2007:162)
+ * Generated via Figma MCP get_variable_defs — draft for Tailwind/globals.css mapping
+ */
+
+:root {
+  /* Brand colors */
+  --color-albastru: #000851;
+  --color-auriu: #f0c321;
+  --color-lila: #f0f2ff;
+  --color-soft-grey: #f1efeb;
+  --color-text-secondary-bg: #e8e8e8;
+  --color-white: #ffffff;
+  --color-icon: #ffffff;
+
+  /* Typography (from Figma variable "Medium") */
+  --font-family-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-size-medium: 14px;
+  --font-weight-medium: 500;
+  --line-height-medium: 20px;
+  --letter-spacing-medium: 0;
+}
