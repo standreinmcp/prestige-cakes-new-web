@@ -1,54 +1,77 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { ChevronRightIcon, WavyCheckIcon } from "@/components/icons";
 
-function ArrowRightIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path
-        d="M3 8h10M9 4l4 4-4 4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+const stats = [
+  { value: "100 %", label: "Ingrediente naturale" },
+  { value: "Zilnic", label: "Producție proaspătă" },
+  { value: "15+", label: "Ani experientă" },
+];
 
 export function Hero() {
   return (
-    <section className="relative min-h-[640px] overflow-hidden lg:min-h-[720px]">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(0,8,81,0.85) 0%, rgba(0,8,81,0.55) 45%, rgba(0,8,81,0.25) 100%), url('https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1600&q=80')",
-        }}
-        role="img"
-        aria-label="Deserturi artizanale Prestige Cakes"
+    <section className="relative min-h-[945px] overflow-hidden">
+      <Image
+        src="/images/home/hero.jpg"
+        alt="Deserturi artizanale Prestige Cakes"
+        fill
+        priority
+        className="object-cover"
+        sizes="100vw"
       />
+      <div className="absolute inset-0 bg-brand-navy/55" />
 
-      <div className="relative mx-auto flex max-w-[1440px] flex-col justify-center px-6 pb-16 pt-32 lg:px-12 lg:pt-40">
-        <span className="mb-6 inline-flex w-fit items-center rounded-full bg-brand-gold px-4 py-1.5 text-xs font-medium text-brand-navy">
+      <div className="relative mx-auto flex max-w-[741px] flex-col items-center px-6 pt-[234px] text-center lg:px-0">
+        <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-brand-gold px-[22px] py-2 text-base text-brand-gold">
           Producem zilnic, cu pasiune
+          <WavyCheckIcon className="h-6 w-6 text-brand-gold" />
         </span>
 
-        <h1 className="max-w-2xl text-4xl font-semibold leading-tight text-white lg:text-6xl">
+        <h1 className="font-serif text-5xl font-semibold leading-tight text-white lg:text-[64px]">
           Deserturi premium{" "}
-          <span className="text-brand-gold">pentru momente speciale</span>
+          <span className="text-brand-gold">
+            pentru momente
+            <br />
+            speciale
+          </span>
         </h1>
 
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-white/90 lg:text-lg">
+        <p className="mt-8 text-[22px] font-medium text-neutral-soft">
           Produse zilnic, din ingrediente naturale, la standarde profesionale
         </p>
 
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Button href="/vitrina-live" variant="primary">
-            Vezi vitrina
-            <ArrowRightIcon />
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-6">
+          <Button href="/vitrina-live" variant="primary" className="min-w-[204px]">
+            Vezi vitrina live
+            <ChevronRightIcon />
           </Button>
-          <Button href="/produse-la-comanda" variant="secondary">
+          <Button
+            href="/produse-la-comanda"
+            variant="secondary"
+            className="min-w-[204px]"
+          >
             Produse la comandă
           </Button>
+        </div>
+      </div>
+
+      <div className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-brand-navy/40 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-[883px] items-center justify-center px-6 py-10">
+          {stats.map((stat, index) => (
+            <div key={stat.label} className="flex items-center">
+              {index > 0 ? (
+                <div className="mx-[50px] hidden h-20 w-px bg-[#686868] sm:block" aria-hidden />
+              ) : null}
+              <div className="flex flex-col items-center gap-2.5 px-2.5 py-2.5 text-center">
+                <p className="font-serif text-[32px] font-medium uppercase text-brand-gold">
+                  {stat.value}
+                </p>
+                <p className="text-base font-medium text-neutral-soft">
+                  {stat.label}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,76 +1,123 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { ArrowRightIcon, CaretCircleIcon } from "@/components/icons";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 
 const categories = [
   {
     slug: "croissante",
     name: "Croissante",
     description:
-      "Croissante proaspete, coapte zilnic, cu unt premium și foițe perfecte.",
-    image:
-      "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80",
+      "Croissante fragede cu fistic, coapte zilnic, realizate cu ingrediente premium și atenție la detalii fin!",
+    imagePosition: "0% 0%",
   },
   {
     slug: "cozonaci",
     name: "Cozonaci",
     description:
-      "Cozonaci tradiționali, umpluți generos, preparați după rețete proprii.",
-    image:
-      "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=600&q=80",
+      "Cozonaci artizanali pentru momente speciale, preparați cu ingrediente premium și atenție la detalii!",
+    imagePosition: "33% 0%",
+    featured: true,
   },
   {
     slug: "choux",
     name: "Choux",
     description:
-      "Deserturi choux fine, cu creme artizanale și finisaje elegante.",
-    image:
-      "https://images.unsplash.com/photo-1464349095431-e9a21285b5cc?auto=format&fit=crop&w=600&q=80",
+      "Choux elegante cu creme fine, glazurate delica, create cu ingrediente premium și atenție la detalii!",
+    imagePosition: "66% 0%",
   },
   {
     slug: "tarte",
     name: "Tarte",
     description:
-      "Tarte cu fructe proaspete și creme fine, perfecte pentru orice ocazie.",
-    image:
-      "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=600&q=80",
+      "Tarte rafinate cu fructe, coapte zilnic, realizate cu ingrediente premium și atenție la detalii fin!",
+    imagePosition: "100% 0%",
   },
 ];
 
 export function CategoryCarousel() {
-  return (
-    <section className="bg-white py-16 lg:py-24">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-        <h2 className="text-center text-3xl font-semibold text-brand-navy lg:text-4xl">
-          Explorează gama noastră
-        </h2>
+  const [activeIndex, setActiveIndex] = useState(0);
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
-            <article
-              key={category.slug}
-              className="overflow-hidden rounded-2xl border border-neutral-muted bg-white shadow-sm transition-shadow hover:shadow-md"
-            >
-              <div
-                className="h-48 bg-cover bg-center"
-                style={{ backgroundImage: `url('${category.image}')` }}
-                role="img"
-                aria-label={category.name}
-              />
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-brand-navy">
-                  {category.name}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-navy/70">
-                  {category.description}
-                </p>
-                <Link
-                  href={`/vitrina-live?categorie=${category.slug}`}
-                  className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-gold hover:underline"
+  const prev = () =>
+    setActiveIndex((current) => (current === 0 ? categories.length - 1 : current - 1));
+  const next = () =>
+    setActiveIndex((current) => (current === categories.length - 1 ? 0 : current + 1));
+
+  return (
+    <section className="bg-gradient-to-b from-white to-[#fcfcff] py-16 lg:py-24">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
+        <SectionHeader
+          badge="Produsele noastre"
+          title="Explorează gama noastră"
+          subtitle="Fiecare produs poartă semnătura pasiunii pentru un gust autentic și calitate fără compromis."
+        />
+
+        <div className="relative mt-16">
+          <button
+            type="button"
+            onClick={prev}
+            className="absolute left-0 top-1/2 z-10 hidden -translate-y-1/2 rotate-180 lg:block"
+            aria-label="Categorie anterioară"
+          >
+            <CaretCircleIcon />
+          </button>
+
+          <div className="grid gap-[34px] sm:grid-cols-2 xl:grid-cols-4">
+            {categories.map((category, index) => {
+              const isFeatured = category.featured || index === activeIndex;
+              return (
+                <article
+                  key={category.slug}
+                  className={`flex flex-col overflow-hidden rounded-[22px] bg-white transition-shadow ${
+                    isFeatured
+                      ? "border border-brand-gold shadow-[0_20px_16px_rgba(0,0,0,0.22)]"
+                      : "shadow-[0_8px_10px_rgba(0,0,0,0.12)]"
+                  }`}
                 >
-                  Vezi tot →
-                </Link>
-              </div>
-            </article>
-          ))}
+                  <div className="relative h-60 overflow-hidden rounded-t-[22px]">
+                    <Image
+                      src="/images/home/categories.jpg"
+                      alt={category.name}
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: category.imagePosition }}
+                      sizes="(max-width: 768px) 100vw, 240px"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 px-3 py-5">
+                    <h3 className="font-serif text-[22px] font-semibold text-brand-navy">
+                      {category.name}
+                    </h3>
+                    <p className="text-base leading-relaxed text-text-muted">
+                      {category.description}
+                    </p>
+                    <Link
+                      href={`/vitrina-live?categorie=${category.slug}`}
+                      className="inline-flex items-center gap-2 py-2.5 text-base font-medium text-brand-gold"
+                    >
+                      Vezi tot
+                      <ArrowRightIcon />
+                    </Link>
+                  </div>
+                  {isFeatured ? (
+                    <div className="h-1 bg-gradient-to-r from-white via-brand-gold to-white" />
+                  ) : null}
+                </article>
+              );
+            })}
+          </div>
+
+          <button
+            type="button"
+            onClick={next}
+            className="absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 lg:block"
+            aria-label="Categorie următoare"
+          >
+            <CaretCircleIcon />
+          </button>
         </div>
       </div>
     </section>

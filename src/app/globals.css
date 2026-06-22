@@ -21,7 +21,11 @@
   --color-brand-lilac: var(--color-lila);
   --color-neutral-soft: var(--color-soft-grey);
   --color-neutral-muted: var(--color-text-secondary-bg);
+  --color-text-muted: #686868;
+  --color-border-card: #d4d4d4;
+  --color-icon-cream: #fbedbd;
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
 }
 
 body {

@@ -1,56 +1,77 @@
+import { SectionHeader } from "@/components/ui/SectionHeader";
+
 const testimonials = [
   {
     quote:
-      "Croissantele sunt incredibile — proaspete, crocante și cu gust autentic. Recomand cu încredere!",
-    name: "Maria P.",
-    role: "Client fidel",
-    initials: "MP",
+      "Am comandat deserturi pentru evenimentul nostru anual și au fost absolut delicioase. Prezentarea a fost impecabilă, iar gustul exceptional. Recomand cu încredere!",
+    name: "Maria Popescu",
+    role: "Client corporativ",
+    initial: "M",
+    featured: false,
   },
   {
     quote:
-      "Am comandat un cozonac pentru sărbători și a fost admirat de toți invitații. Calitate excepțională.",
-    name: "Ion D.",
-    role: "București",
-    initials: "ID",
+      "Tortul de nuntă realizat de ei a fost exact cum ne-am imaginat. Atenția la detalii și profesionalismul echipei sunt de admirat. Mulțumim!",
+    name: "Alexandru Ionescu",
+    role: "Client privat",
+    initial: "A",
+    featured: true,
   },
   {
     quote:
-      "Serviciul de livrare este impecabil, iar deserturile ajung mereu în stare perfectă.",
-    name: "Elena S.",
+      "Colaborez cu ei de mai mulți ani pentru evenimente premium. Întotdeauna livrează calitate constantă și respectă termenele. Foarte profesioniști!",
+    name: "Elena Dumitrescu",
     role: "Organizator evenimente",
-    initials: "ES",
+    initial: "E",
+    featured: false,
   },
 ];
 
+function Stars() {
+  return (
+    <div className="flex gap-1 text-brand-gold" aria-label="5 stele">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <span key={index}>★</span>
+      ))}
+    </div>
+  );
+}
+
 export function TestimonialsSection() {
   return (
-    <section className="bg-white py-16 lg:py-24">
+    <section className="bg-gradient-to-b from-[#fcfcff] to-white py-16 lg:py-24">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-        <h2 className="text-center text-3xl font-semibold text-brand-navy lg:text-4xl">
-          Ce spun clienții noștri
-        </h2>
+        <SectionHeader badge="Testimoniale" title="Ce spun clienții noștri" />
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-16 grid gap-[66px] lg:grid-cols-3">
           {testimonials.map((item) => (
             <article
               key={item.name}
-              className="flex flex-col rounded-2xl border border-neutral-muted bg-white p-8 shadow-sm"
+              className={`relative flex h-[262px] flex-col overflow-hidden rounded-[22px] bg-white p-[26px] ${
+                item.featured
+                  ? "border border-border-card shadow-[0_20px_32px_rgba(0,0,0,0.22)]"
+                  : "border border-border-card shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
+              }`}
             >
-              <div className="flex gap-1 text-brand-gold" aria-label="5 stele">
-                {"★★★★★"}
-              </div>
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-brand-navy/80">
+              <span
+                className="pointer-events-none absolute right-4 top-[-10px] font-serif text-7xl text-brand-gold/15"
+                aria-hidden
+              >
+                &ldquo;
+              </span>
+              <Stars />
+              <p className="mt-4 flex-1 text-base leading-relaxed text-text-muted">
                 &ldquo;{item.quote}&rdquo;
               </p>
-              <div className="mt-6 flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-navy text-xs font-medium text-white">
-                  {item.initials}
+              <div className="mt-4 flex items-end gap-3">
+                <span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-brand-navy font-semibold text-[22px] text-brand-gold">
+                  {item.initial}
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-brand-navy">
+                  <p className="font-serif text-lg font-semibold text-brand-navy">
                     {item.name}
                   </p>
-                  <p className="text-xs text-brand-navy/60">{item.role}</p>
+                  <p className="text-sm text-text-muted">{item.role}</p>
                 </div>
               </div>
             </article>
