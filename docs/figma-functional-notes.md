@@ -87,15 +87,15 @@ Status reflects codebase as of v0.1.8.
 |---|------|------------------|--------|
 | **P0** | **Data model** | Product type, stock, order + sub-order schema, status enums | Done (v0.1.9) |
 | **P0** | **Split order** | Detect mixed cart; choice at `/cos`; sub-orders; checkout dual-package summary | Done (v0.1.9) |
-| **P0** | **Checkout** | Stripe vs cash, dynamic CTA, delivery fee after locality, sticky summary | Partial — Stripe stub (v0.2.1) |
+| **P0** | **Checkout** | Stripe vs cash, dynamic CTA, delivery fee after locality, sticky summary | Done (v0.2.6) |
 | **P1** | **PDP** | Show product type + lead time before add-to-cart | Done (v0.1.9) |
 | **P1** | **Vitrină stock** | Hide/disable out-of-stock live products | Done (v0.2.0) |
 | **P1** | **Pickup / maps** | Google Maps link behavior | Done (v0.1.9) |
-| **P2** | **Product cards** | Hover/tap states, add-to-cart feedback, size vs PDP | Partial |
-| **P2** | **Homepage** | Hero carousel, scroll CTA, maps, mobile nav | Partial |
-| **P2** | **Catalog copy** | Produse la comandă microcopy ≠ Vitrină live | Partial |
-| **P3** | **Admin** | Dashboard widgets, full CRUD, order status UI, split sub-sections | Partial — CRUD + status (v0.2.4) |
-| **P3** | **Gallery sync** | Product image → public gallery (Figma) | Not done |
+| **P2** | **Product cards** | Hover/tap states, add-to-cart feedback, size vs PDP | Done (v0.2.5) |
+| **P2** | **Homepage** | Hero carousel, scroll CTA, maps, mobile nav | Done (v0.2.7) |
+| **P2** | **Catalog copy** | Produse la comandă microcopy ≠ Vitrină live | Done (v0.2.0) |
+| **P3** | **Admin** | Dashboard widgets, full CRUD, order status UI, split sub-sections | Done (v0.2.4–v0.2.8) |
+| **P3** | **Gallery sync** | Product image → public gallery (Figma) | Done (v0.2.5) |
 | **—** | **Email UI** | Figma: „n-avem mailuri” | Out of scope v1 |
 | **TBD** | **Notifications** | Designer doc: notify on status changes — channel undefined | Future |
 
