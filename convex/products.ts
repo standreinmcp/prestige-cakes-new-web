@@ -12,7 +12,17 @@ export const listAvailable = query({
   args: {},
   handler: async (ctx) => {
     const products = await ctx.db.query("products").collect();
-    return products.filter((p) => p.isAvailable);
+    return products.filter((p) => {
+      if (!p.isAvailable) return false;
+      if (
+        !p.isMadeToOrder &&
+        p.stockQuantity !== undefined &&
+        p.stockQuantity <= 0
+      ) {
+        return false;
+      }
+      return true;
+    });
   },
 });
 

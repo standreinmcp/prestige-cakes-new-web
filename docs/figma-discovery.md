@@ -9,6 +9,8 @@ Generated from the designer file via Figma MCP on 2026-06-22.
 | **MCP server** | `user-figma` (workspace `.cursor/mcp.json`) |
 | **Authenticated as** | Andrei Stoica (nomorecoffeeplease@gmail.com) |
 
+**Functional spec (designer comments + project doc):** [figma-functional-notes.md](./figma-functional-notes.md) — Figma comments from [Prestige-Cakes](https://www.figma.com/design/5spQSIosKMtvvI1k0Zkzib/Prestige-Cakes) plus `Prestige_Cakes_Documentatie_Text.docx`.
+
 ## Page inventory
 
 | Page | nodeId | Notes |

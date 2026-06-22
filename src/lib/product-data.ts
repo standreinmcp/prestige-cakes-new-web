@@ -21,6 +21,7 @@ const productDetails: Record<string, ProductDetailData> = {
     priceLabel: "140 lei / kg",
     pricePerKg: 140,
     imagePosition: "100% 0%",
+    productType: "live",
     longDescription:
       "Aluat fraged preparat manual, fără conservanți sau aditivi artificiali, copt la perfecțiune pentru a obține o textură crocantă pe exterior și fină în interior. Crema premium este realizată cu ouă proaspete de la fermieri locali selectați.",
     nutrition: {
@@ -38,6 +39,7 @@ const productDetails: Record<string, ProductDetailData> = {
     priceLabel: "85 lei / kg",
     pricePerKg: 85,
     imagePosition: "0% 0%",
+    productType: "live",
     longDescription:
       "Croissant franțuzesc cu fistic proaspăt, preparat zilnic din unt premium și foițe coapte manual pentru o textură aerată și crocantă.",
     nutrition: {
@@ -55,6 +57,7 @@ const productDetails: Record<string, ProductDetailData> = {
     priceLabel: "75 lei / kg",
     pricePerKg: 75,
     imagePosition: "33% 0%",
+    productType: "made_to_order",
     longDescription:
       "Cozonac cu nucă și cacao, rețetă tradițională reinterpretată cu ingrediente premium și umplutură generoasă.",
     nutrition: {
@@ -72,6 +75,7 @@ const productDetails: Record<string, ProductDetailData> = {
     priceLabel: "110 lei / kg",
     pricePerKg: 110,
     imagePosition: "66% 0%",
+    productType: "live",
     longDescription:
       "Choux umplut cu cremă de vanilie naturală, glazurat delicat și finisat cu atenție la detalii.",
     nutrition: {

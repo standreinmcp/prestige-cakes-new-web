@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+import { CartProvider } from "@/components/cart/CartProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -33,7 +34,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ConvexClientProvider>
-          <div className="flex min-h-full flex-1 flex-col">{children}</div>
+          <CartProvider>
+            <div className="flex min-h-full flex-1 flex-col">{children}</div>
+          </CartProvider>
         </ConvexClientProvider>
       </body>
     </html>

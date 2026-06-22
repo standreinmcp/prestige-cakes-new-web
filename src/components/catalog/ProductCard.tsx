@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
 
+import type { ProductType } from "@/lib/cart-types";
+
 export type ProductCardData = {
   slug: string;
   name: string;
@@ -12,6 +14,8 @@ export type ProductCardData = {
   priceLabel: string;
   imagePosition?: string;
   featured?: boolean;
+  productType?: ProductType;
+  stockQuantity?: number;
 };
 
 type ProductCardProps = {

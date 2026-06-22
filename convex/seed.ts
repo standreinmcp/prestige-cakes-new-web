@@ -46,6 +46,7 @@ export const seedCatalog = mutation({
       price: 12,
       isAvailable: true,
       isMadeToOrder: false,
+      stockQuantity: 24,
     });
 
     await ctx.db.insert("products", {
@@ -66,6 +67,7 @@ export const seedCatalog = mutation({
       price: 28,
       isAvailable: true,
       isMadeToOrder: false,
+      stockQuantity: 18,
     });
 
     await ctx.db.insert("products", {

@@ -3,11 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ProductCard } from "@/components/catalog/ProductCard";
+import { ProductCard, type ProductCardData } from "@/components/catalog/ProductCard";
 import { Button } from "@/components/ui/Button";
 import { CartIcon } from "@/components/icons";
+import { useCart } from "@/components/cart/CartProvider";
 import type { ProductDetailData } from "@/lib/product-data";
-import type { ProductCardData } from "@/components/catalog/ProductCard";
+import {
+  productTypeLabel,
+  unitPriceFromKg,
+} from "@/lib/cart-types";
+import { useRouter } from "next/navigation";
 
 const trustBadges = [
   { icon: "🏅", label: "Artizanal" },
@@ -22,8 +27,24 @@ type ProductDetailViewProps = {
 };
 
 export function ProductDetailView({ product, similar }: ProductDetailViewProps) {
+  const router = useRouter();
+  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const unitPrice = ((product.pricePerKg * 0.07) * quantity).toFixed(2);
+  const unitPrice = unitPriceFromKg(product.pricePerKg, product.portion);
+  const lineTotal = (unitPrice * quantity).toFixed(2);
+
+  const handleAddToCart = () => {
+    addItem({
+      slug: product.slug,
+      name: product.name,
+      portion: product.portion,
+      price: unitPrice,
+      quantity,
+      imagePosition: product.imagePosition,
+      productType: product.productType ?? "live",
+    });
+    router.push("/cos");
+  };
 
   return (
     <>
@@ -57,6 +78,11 @@ export function ProductDetailView({ product, similar }: ProductDetailViewProps) 
             <h1 className="font-serif text-4xl font-semibold text-brand-navy">
               {product.name}
             </h1>
+            {product.productType && (
+              <p className="mt-2 inline-block rounded-full border border-brand-gold/50 bg-brand-gold/10 px-3 py-1 text-sm font-medium text-brand-navy">
+                {productTypeLabel(product.productType)}
+              </p>
+            )}
             <p className="mt-4 font-serif text-2xl text-brand-navy/80">
               {product.portion}
             </p>
@@ -132,9 +158,14 @@ export function ProductDetailView({ product, similar }: ProductDetailViewProps) 
                   +
                 </button>
               </div>
-              <Button variant="primary" className="gap-3">
+              <Button
+                variant="primary"
+                className="gap-3"
+                type="button"
+                onClick={handleAddToCart}
+              >
                 <CartIcon className="h-6 w-6" />
-                Adaugă {quantity} pentru {unitPrice} lei
+                Adaugă {quantity} pentru {lineTotal} lei
               </Button>
             </div>
           </div>

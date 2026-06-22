@@ -2,9 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { OrderSummary } from "@/components/checkout/OrderSummary";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { useCart } from "@/components/cart/CartProvider";
+import {
+  OrderSummary,
+  cartItemsToSummary,
+} from "@/components/checkout/OrderSummary";
 import { Button } from "@/components/ui/Button";
+import {
+  DELIVERY_FEE,
+  cartSubtotal,
+} from "@/lib/cart-types";
+import { savePlacedOrder } from "@/lib/order-session";
+import { PICKUP_ADDRESS, PICKUP_MAPS_URL } from "@/lib/order-constants";
 
 type Fulfillment = "delivery" | "pickup";
 type PaymentMethod = "card" | "cash";
@@ -24,14 +37,20 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
 function TextInput({
   placeholder,
   className = "",
+  value,
+  onChange,
 }: {
   placeholder?: string;
   className?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   return (
     <input
       type="text"
       placeholder={placeholder}
+      value={value}
+      onChange={(e) => onChange?.(e.target.value)}
       className={`h-9 w-full rounded-lg border border-border-card bg-white px-2 text-base text-brand-navy outline-none focus:border-brand-gold ${className}`}
     />
   );
@@ -68,19 +87,166 @@ function RadioOption({
 export function CheckoutView({
   defaultFulfillment = "delivery",
 }: CheckoutViewProps) {
+  const router = useRouter();
+  const createOrder = useMutation(api.orders.create);
+  const { items, splitStrategy, hasMixedTypes, liveItems, madeToOrderItems, clearCart } =
+    useCart();
   const [fulfillment, setFulfillment] = useState<Fulfillment>(
     defaultFulfillment,
   );
   const [payment, setPayment] = useState<PaymentMethod>("card");
+  const [locality, setLocality] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetails, setAddressDetails] = useState("");
+  const [orderNotes, setOrderNotes] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const cashLabel =
     fulfillment === "pickup"
       ? "Numerar la ridicarea comenzii"
       : "Numerar la livrare";
 
-  const submitHref =
-    fulfillment === "pickup" ? "/checkout/confirmare" : "/checkout/confirmare";
+  const subtotal = cartSubtotal(items);
+  const showDelivery =
+    fulfillment === "delivery" && locality !== "" && locality !== "Alege localitatea";
+  const isPartialSplit =
+    hasMixedTypes && splitStrategy === "partial" && fulfillment === "delivery";
+  const deliveryFeeCount = showDelivery ? (isPartialSplit ? 2 : 1) : 0;
+
+  const summaryItems = cartItemsToSummary(items);
+  const splitPackages =
+    isPartialSplit && showDelivery
+      ? [
+          {
+            title: "Pachet 1 — disponibil azi",
+            items: cartItemsToSummary(liveItems),
+          },
+          {
+            title: "Pachet 2 — în 1–2 zile",
+            items: cartItemsToSummary(madeToOrderItems),
+          },
+        ]
+      : undefined;
+
+  const ctaLabel =
+    payment === "cash" ? "Finalizează comanda" : "Continuă la plată";
+
+  const canSubmit =
+    termsAccepted &&
+    firstName.trim() &&
+    lastName.trim() &&
+    phone.trim() &&
+    (fulfillment === "pickup" || (address.trim() && locality));
+
+  const handleSubmit = async () => {
+    if (!canSubmit || submitting) return;
+
+    const deliveryFeeTotal = deliveryFeeCount * DELIVERY_FEE;
+    const total = subtotal + deliveryFeeTotal;
+    const customerName = `${firstName.trim()} ${lastName.trim()}`;
+    const paymentLabel =
+      payment === "cash"
+        ? fulfillment === "pickup"
+          ? "Numerar la ridicare"
+          : "Numerar la livrare"
+        : "Card online";
+
+    setSubmitting(true);
+    try {
+      let orderId: string | undefined;
+      if (process.env.NEXT_PUBLIC_CONVEX_URL) {
+        orderId = await createOrder({
+          customerName,
+          email: email.trim() || "—",
+          phone: phone.trim(),
+          deliveryType: fulfillment === "pickup" ? "pickup" : "delivery",
+          paymentMethod: payment,
+          splitStrategy: hasMixedTypes ? splitStrategy ?? undefined : undefined,
+          deliveryAddress:
+            fulfillment === "delivery" ? address.trim() : undefined,
+          locality: fulfillment === "delivery" ? locality : undefined,
+          notes: orderNotes.trim() || undefined,
+          items: items.map((item) => ({
+            productName: item.name,
+            quantity: item.quantity,
+            unitPrice: item.price,
+            productType: item.productType,
+          })),
+          subtotal,
+          deliveryFee: deliveryFeeTotal > 0 ? deliveryFeeTotal : undefined,
+          total,
+        });
+      }
+
+      const orderNumber = orderId
+        ? `#${String(orderId).slice(-4)}`
+        : `#${Date.now().toString().slice(-4)}`;
+
+      savePlacedOrder({
+        orderId,
+        orderNumber,
+        placedOn: new Date().toLocaleDateString("ro-RO"),
+        fulfillment:
+          fulfillment === "pickup" ? "Ridicare din locație" : "Livrare la adresă",
+        deliveryEstimate: isPartialSplit
+          ? "Livrare în două etape"
+          : hasMixedTypes
+            ? "1–2 zile lucrătoare"
+            : "Azi sau 1–2 zile",
+        customer: {
+          name: customerName,
+          phone: phone.trim(),
+          email: email.trim() || "—",
+          address:
+            fulfillment === "delivery" ? address.trim() : PICKUP_ADDRESS,
+          details: addressDetails.trim() || "—",
+          orderNotes: orderNotes.trim() || "—",
+          paymentMethod: paymentLabel,
+        },
+        isPartialSplit: Boolean(isPartialSplit),
+        items: items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        subtotal,
+        deliveryFeeTotal,
+      });
+
+      clearCart();
+
+      if (payment === "card") {
+        const stripeRes = await fetch("/api/stripe/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            total,
+            customerEmail: email.trim() || undefined,
+            orderId,
+          }),
+        });
+        const stripeData = (await stripeRes.json()) as {
+          url?: string;
+          mock?: boolean;
+          error?: string;
+        };
+        if (stripeData.url) {
+          router.push(stripeData.url);
+          return;
+        }
+      }
+
+      router.push("/checkout/confirmare");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -98,6 +264,18 @@ export function CheckoutView({
 
       <section className="bg-white px-6 py-12 lg:px-12">
         <div className="mx-auto max-w-[1248px]">
+          {isPartialSplit && (
+            <div className="mb-8 rounded-2xl border border-brand-gold/40 bg-brand-lilac/30 px-6 py-4">
+              <p className="font-serif text-lg font-semibold text-brand-navy">
+                Produsele au fost împărțite în două comenzi
+              </p>
+              <p className="mt-1 text-sm text-text-muted">
+                Livrăm produsele disponibile chiar acum. Iar restul în
+                aproximativ 1–2 zile.
+              </p>
+            </div>
+          )}
+
           <h1 className="font-serif text-4xl font-semibold text-brand-navy">
             Încă puțin și comanda ta este pregătită
           </h1>
@@ -114,11 +292,19 @@ export function CheckoutView({
                 <div className="mt-5 grid gap-6 sm:grid-cols-2">
                   <div>
                     <FieldLabel>Prenume *</FieldLabel>
-                    <TextInput />
+                    <TextInput
+                      placeholder="ex : Andrei"
+                      value={firstName}
+                      onChange={setFirstName}
+                    />
                   </div>
                   <div>
                     <FieldLabel>Nume *</FieldLabel>
-                    <TextInput />
+                    <TextInput
+                      placeholder="ex : Popescu"
+                      value={lastName}
+                      onChange={setLastName}
+                    />
                   </div>
                   <div>
                     <FieldLabel>Telefon *</FieldLabel>
@@ -128,13 +314,19 @@ export function CheckoutView({
                       <input
                         type="tel"
                         className="flex-1 bg-transparent text-base outline-none"
-                        placeholder=""
+                        placeholder="+ 40 123456789"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                       />
                     </div>
                   </div>
                   <div>
                     <FieldLabel>Email ( opțional )</FieldLabel>
-                    <TextInput />
+                    <TextInput
+                      placeholder="ex : exemplu@gmail.com"
+                      value={email}
+                      onChange={setEmail}
+                    />
                   </div>
                 </div>
               </div>
@@ -173,17 +365,31 @@ export function CheckoutView({
                     <div className="mt-5 space-y-5">
                       <div>
                         <FieldLabel>Adresa completă *</FieldLabel>
-                        <TextInput />
+                        <TextInput
+                          placeholder="ex : Strada Florilor, nr. 23, ap. 4"
+                          value={address}
+                          onChange={setAddress}
+                        />
                       </div>
                       <div>
-                        <FieldLabel>Detalii suplimentare ( opțional )</FieldLabel>
-                        <TextInput />
+                        <FieldLabel>
+                          Detalii suplimentare ( opțional )
+                        </FieldLabel>
+                        <TextInput
+                          placeholder="ex : Scara A, Etaj 2, Interfon 04"
+                          value={addressDetails}
+                          onChange={setAddressDetails}
+                        />
                       </div>
                       <div>
                         <FieldLabel>Localitate *</FieldLabel>
-                        <select className="h-9 w-full rounded-lg border border-border-card bg-white px-3 text-base text-text-muted outline-none focus:border-brand-gold">
-                          <option>Alege localitatea</option>
-                          <option>Baia Mare</option>
+                        <select
+                          value={locality}
+                          onChange={(e) => setLocality(e.target.value)}
+                          className="h-9 w-full rounded-lg border border-border-card bg-white px-3 text-base text-brand-navy outline-none focus:border-brand-gold"
+                        >
+                          <option value="">Alege localitatea</option>
+                          <option value="Baia Mare">Baia Mare</option>
                         </select>
                       </div>
                     </div>
@@ -196,18 +402,28 @@ export function CheckoutView({
                     <h2 className="font-serif text-xl font-semibold text-brand-navy">
                       Te vom aștepta să ridici comanda din locația noastră
                     </h2>
-                    <p className="mt-4 flex items-center gap-2 text-base text-brand-navy">
+                    <a
+                      href={PICKUP_MAPS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 flex items-center gap-2 text-base text-brand-gold hover:underline"
+                    >
                       <span aria-hidden>📍</span>
-                      Baia Mare, Aleea Dobrogei nr. 1
-                    </p>
-                    <div className="mt-5 h-[149px] overflow-hidden rounded-2xl border border-border-card bg-brand-lilac/40">
+                      {PICKUP_ADDRESS}
+                    </a>
+                    <a
+                      href={PICKUP_MAPS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 block h-[149px] overflow-hidden rounded-2xl border border-border-card"
+                    >
                       <iframe
                         title="Locație Prestige Cakes"
                         src="https://maps.google.com/maps?q=Aleea+Dobrogei+1+Baia+Mare&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                        className="h-full w-full border-0"
+                        className="pointer-events-none h-full w-full border-0"
                         loading="lazy"
                       />
-                    </div>
+                    </a>
                   </div>
                 </>
               )}
@@ -220,6 +436,9 @@ export function CheckoutView({
                 </h2>
                 <textarea
                   rows={4}
+                  placeholder="Adaugă un mesaj personalizat pentru tort sau instrucțiuni speciale de livrare..."
+                  value={orderNotes}
+                  onChange={(e) => setOrderNotes(e.target.value)}
                   className="mt-5 w-full rounded-lg border border-border-card bg-white p-3 text-base text-brand-navy outline-none focus:border-brand-gold"
                 />
               </div>
@@ -267,15 +486,24 @@ export function CheckoutView({
               </label>
 
               <Button
-                href={termsAccepted ? submitHref : undefined}
+                type="button"
                 variant="primary"
-                className={`w-full ${!termsAccepted ? "pointer-events-none opacity-50" : ""}`}
+                disabled={!canSubmit || submitting}
+                onClick={handleSubmit}
+                className={`w-full ${!canSubmit ? "opacity-50" : ""}`}
               >
-                Continuă la plată
+                {submitting ? "Se procesează..." : ctaLabel}
               </Button>
             </form>
 
-            <OrderSummary showDelivery={fulfillment === "delivery"} />
+            <OrderSummary
+              items={summaryItems}
+              subtotal={subtotal}
+              deliveryFee={DELIVERY_FEE}
+              deliveryFeeCount={deliveryFeeCount}
+              showDelivery={showDelivery}
+              splitPackages={splitPackages}
+            />
           </div>
         </div>
       </section>

@@ -1,6 +1,33 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
+const orderItem = v.object({
+  productId: v.optional(v.id("products")),
+  productName: v.string(),
+  quantity: v.number(),
+  unitPrice: v.number(),
+  productType: v.optional(
+    v.union(v.literal("live"), v.literal("made_to_order")),
+  ),
+});
+
+const orderStatus = v.union(
+  v.literal("pending"),
+  v.literal("confirmed"),
+  v.literal("preparing"),
+  v.literal("shipped"),
+  v.literal("ready_for_pickup"),
+  v.literal("delivered"),
+  v.literal("cancelled"),
+);
+
+const subOrder = v.object({
+  kind: v.union(v.literal("live"), v.literal("made_to_order")),
+  status: orderStatus,
+  items: v.array(orderItem),
+  deliveryFee: v.optional(v.number()),
+});
+
 export default defineSchema({
   categories: defineTable({
     name: v.string(),
@@ -19,19 +46,13 @@ export default defineSchema({
     imageUrl: v.optional(v.string()),
     isAvailable: v.boolean(),
     isMadeToOrder: v.boolean(),
+    stockQuantity: v.optional(v.number()),
   })
     .index("by_slug", ["slug"])
     .index("by_category", ["categoryId"]),
 
   orders: defineTable({
-    status: v.union(
-      v.literal("pending"),
-      v.literal("confirmed"),
-      v.literal("preparing"),
-      v.literal("ready"),
-      v.literal("delivered"),
-      v.literal("cancelled"),
-    ),
+    status: orderStatus,
     customerName: v.string(),
     email: v.string(),
     phone: v.string(),
@@ -40,16 +61,19 @@ export default defineSchema({
       v.literal("pickup"),
       v.literal("fast_delivery"),
     ),
-    deliveryAddress: v.optional(v.string()),
-    notes: v.optional(v.string()),
-    items: v.array(
-      v.object({
-        productId: v.id("products"),
-        productName: v.string(),
-        quantity: v.number(),
-        unitPrice: v.number(),
-      }),
+    paymentMethod: v.optional(
+      v.union(v.literal("card"), v.literal("cash")),
     ),
+    splitStrategy: v.optional(
+      v.union(v.literal("partial"), v.literal("unified")),
+    ),
+    deliveryAddress: v.optional(v.string()),
+    locality: v.optional(v.string()),
+    notes: v.optional(v.string()),
+    items: v.array(orderItem),
+    subOrders: v.optional(v.array(subOrder)),
+    subtotal: v.number(),
+    deliveryFee: v.optional(v.number()),
     total: v.number(),
     createdAt: v.number(),
   }).index("by_status", ["status"]),

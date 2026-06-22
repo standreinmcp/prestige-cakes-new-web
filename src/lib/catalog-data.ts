@@ -9,6 +9,8 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "70 g / o bucată.",
     priceLabel: "85 lei / kg",
     imagePosition: "0% 0%",
+    productType: "live",
+    stockQuantity: 12,
   },
   {
     slug: "cozonac-cu-ciocolata",
@@ -17,7 +19,9 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "500 g / o bucată.",
     priceLabel: "75 lei / kg",
     imagePosition: "33% 0%",
+    productType: "live",
     featured: true,
+    stockQuantity: 0,
   },
   {
     slug: "choux-cu-vanilie",
@@ -26,6 +30,8 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "250 g.",
     priceLabel: "110 lei / kg",
     imagePosition: "66% 0%",
+    productType: "live",
+    stockQuantity: 8,
   },
   {
     slug: "tarte-cu-fructe",
@@ -34,6 +40,8 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "70 g / o bucată.",
     priceLabel: "140 lei / kg",
     imagePosition: "100% 0%",
+    productType: "live",
+    stockQuantity: 6,
   },
   {
     slug: "croissant-cu-fistic-2",
@@ -42,6 +50,8 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "70 g / o bucată.",
     priceLabel: "85 lei / kg",
     imagePosition: "0% 50%",
+    productType: "live",
+    stockQuantity: 10,
   },
   {
     slug: "tarte-cu-fructe-2",
@@ -50,6 +60,8 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "70 g / o bucată.",
     priceLabel: "140 lei / kg",
     imagePosition: "100% 50%",
+    productType: "live",
+    stockQuantity: 4,
   },
   {
     slug: "choux-cu-vanilie-2",
@@ -58,6 +70,8 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "250 g.",
     priceLabel: "110 lei / kg",
     imagePosition: "66% 50%",
+    productType: "live",
+    stockQuantity: 3,
   },
   {
     slug: "cozonac-cu-ciocolata-2",
@@ -66,6 +80,8 @@ export const vitrinaProducts: ProductCardData[] = [
     portion: "500 g / o bucată.",
     priceLabel: "75 lei / kg",
     imagePosition: "33% 50%",
+    productType: "live",
+    stockQuantity: 2,
   },
 ];
 
@@ -77,6 +93,7 @@ export const madeToOrderProducts: ProductCardData[] = [
     portion: "2 kg / tort.",
     priceLabel: "180 lei / kg",
     imagePosition: "center",
+    productType: "made_to_order",
   },
   {
     slug: "tort-aniversare-ciocolata",
@@ -86,6 +103,7 @@ export const madeToOrderProducts: ProductCardData[] = [
     priceLabel: "165 lei / kg",
     imagePosition: "25% 25%",
     featured: true,
+    productType: "made_to_order",
   },
   {
     slug: "candy-bar-premium",
@@ -94,6 +112,7 @@ export const madeToOrderProducts: ProductCardData[] = [
     portion: "Minim 30 persoane.",
     priceLabel: "Ofertă personalizată",
     imagePosition: "75% 25%",
+    productType: "made_to_order",
   },
   {
     slug: "cozonac-traditional",
@@ -102,5 +121,6 @@ export const madeToOrderProducts: ProductCardData[] = [
     portion: "1 kg / bucată.",
     priceLabel: "95 lei / kg",
     imagePosition: "50% 75%",
+    productType: "made_to_order",
   },
 ];
