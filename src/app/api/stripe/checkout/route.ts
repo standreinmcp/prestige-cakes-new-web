@@ -1,17 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import Stripe from "stripe";
 
 type CheckoutBody = {
   total: number;
   customerEmail?: string;
   orderId?: string;
+  orderNumber?: string;
 };
 
-/**
- * Stripe Checkout Session stub.
- * With STRIPE_SECRET_KEY set, integrate real Stripe here.
- * Without keys, returns a mock redirect for local/dev testing.
- */
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   let body: CheckoutBody;
   try {
     body = (await request.json()) as CheckoutBody;
@@ -30,11 +27,34 @@ export async function POST(request: Request) {
     });
   }
 
-  // Real Stripe integration placeholder — install `stripe` and create a session.
-  return NextResponse.json(
-    {
-      error: "Stripe keys present but integration not configured yet",
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const origin = request.nextUrl.origin;
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    customer_email: body.customerEmail,
+    line_items: [
+      {
+        price_data: {
+          currency: "ron",
+          unit_amount: Math.round(body.total * 100),
+          product_data: {
+            name: `Comandă Prestige Cakes ${body.orderNumber ?? ""}`.trim(),
+          },
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: {
+      orderId: body.orderId ?? "",
     },
-    { status: 501 },
-  );
+    success_url: `${origin}/checkout/confirmare?payment=card&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${origin}/checkout`,
+  });
+
+  if (!session.url) {
+    return NextResponse.json({ error: "Stripe session missing URL" }, { status: 500 });
+  }
+
+  return NextResponse.json({ url: session.url });
 }
