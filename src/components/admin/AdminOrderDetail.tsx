@@ -1,10 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
-import { ORDER_STATUS_LABELS } from "@/lib/order-constants";
+import {
+  ORDER_STATUS_LABELS,
+  ORDER_STATUS_OPTIONS,
+  type OrderStatus,
+} from "@/lib/order-constants";
+import { adminInputClass } from "./AdminField";
 
 type AdminOrderDetailProps = {
   orderId: string;
@@ -14,6 +19,7 @@ export function AdminOrderDetail({ orderId }: AdminOrderDetailProps) {
   const order = useQuery(api.orders.getById, {
     id: orderId as Id<"orders">,
   });
+  const updateStatus = useMutation(api.orders.updateStatus);
 
   if (order === undefined) {
     return (
@@ -46,6 +52,25 @@ export function AdminOrderDetail({ orderId }: AdminOrderDetailProps) {
         <p className="mt-1 text-sm text-text-muted">
           Status: {ORDER_STATUS_LABELS[order.status] ?? order.status}
         </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <label className="text-sm text-brand-navy">Actualizează status:</label>
+          <select
+            className={adminInputClass}
+            value={order.status}
+            onChange={async (e) => {
+              await updateStatus({
+                id: order._id,
+                status: e.target.value as OrderStatus,
+              });
+            }}
+          >
+            {ORDER_STATUS_OPTIONS.map((status) => (
+              <option key={status} value={status}>
+                {ORDER_STATUS_LABELS[status]}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="rounded-2xl bg-white p-6 shadow-sm">
@@ -82,6 +107,23 @@ export function AdminOrderDetail({ orderId }: AdminOrderDetailProps) {
                 <p className="text-sm text-text-muted">
                   Status: {ORDER_STATUS_LABELS[sub.status] ?? sub.status}
                 </p>
+                <select
+                  className={`${adminInputClass} mt-2 max-w-xs`}
+                  value={sub.status}
+                  onChange={async (e) => {
+                    await updateStatus({
+                      id: order._id,
+                      status: e.target.value as OrderStatus,
+                      subOrderKind: sub.kind,
+                    });
+                  }}
+                >
+                  {ORDER_STATUS_OPTIONS.map((status) => (
+                    <option key={status} value={status}>
+                      {ORDER_STATUS_LABELS[status]}
+                    </option>
+                  ))}
+                </select>
                 <ul className="mt-2 text-sm text-brand-navy">
                   {sub.items.map((item, i) => (
                     <li key={i}>

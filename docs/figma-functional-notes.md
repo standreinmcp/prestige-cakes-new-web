@@ -94,7 +94,7 @@ Status reflects codebase as of v0.1.8.
 | **P2** | **Product cards** | Hover/tap states, add-to-cart feedback, size vs PDP | Partial |
 | **P2** | **Homepage** | Hero carousel, scroll CTA, maps, mobile nav | Partial |
 | **P2** | **Catalog copy** | Produse la comandă microcopy ≠ Vitrină live | Partial |
-| **P3** | **Admin** | Dashboard widgets, full CRUD, order status UI, split sub-sections | Partial — dashboard + orders (v0.2.3) |
+| **P3** | **Admin** | Dashboard widgets, full CRUD, order status UI, split sub-sections | Partial — CRUD + status (v0.2.4) |
 | **P3** | **Gallery sync** | Product image → public gallery (Figma) | Not done |
 | **—** | **Email UI** | Figma: „n-avem mailuri” | Out of scope v1 |
 | **TBD** | **Notifications** | Designer doc: notify on status changes — channel undefined | Future |

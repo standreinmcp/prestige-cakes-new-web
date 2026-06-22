@@ -10,6 +10,7 @@
 
 import type * as admin from "../admin.js";
 import type * as categories from "../categories.js";
+import type * as lib_slug from "../lib/slug.js";
 import type * as orders from "../orders.js";
 import type * as products from "../products.js";
 import type * as seed from "../seed.js";
@@ -23,6 +24,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
   categories: typeof categories;
+  "lib/slug": typeof lib_slug;
   orders: typeof orders;
   products: typeof products;
   seed: typeof seed;
