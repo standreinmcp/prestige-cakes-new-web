@@ -1,4 +1,5 @@
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
+import { ClientOnly } from "@/components/ClientOnly";
 
 export default function GalerieFotoPage() {
   return (
@@ -13,7 +14,13 @@ export default function GalerieFotoPage() {
           </p>
         </div>
       </section>
-      <GalleryGrid />
+      <ClientOnly
+        fallback={
+          <p className="py-12 text-center text-text-muted">Se încarcă galeria...</p>
+        }
+      >
+        <GalleryGrid />
+      </ClientOnly>
     </>
   );
 }

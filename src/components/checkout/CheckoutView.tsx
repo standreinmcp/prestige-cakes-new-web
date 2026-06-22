@@ -4,9 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useMutation } from "convex/react";
-import { api } from "../../../convex/_generated/api";
-import type { Id } from "../../../convex/_generated/dataModel";
 import { useCart } from "@/components/cart/CartProvider";
 import {
   OrderSummary,
@@ -89,7 +86,6 @@ export function CheckoutView({
   defaultFulfillment = "delivery",
 }: CheckoutViewProps) {
   const router = useRouter();
-  const createOrder = useMutation(api.orders.create);
   const { items, splitStrategy, hasMixedTypes, liveItems, madeToOrderItems, clearCart } =
     useCart();
   const [fulfillment, setFulfillment] = useState<Fulfillment>(
@@ -161,30 +157,36 @@ export function CheckoutView({
     try {
       let orderId: string | undefined;
       if (process.env.NEXT_PUBLIC_CONVEX_URL) {
-        orderId = await createOrder({
-          customerName,
-          email: email.trim() || "—",
-          phone: phone.trim(),
-          deliveryType: fulfillment === "pickup" ? "pickup" : "delivery",
-          paymentMethod: payment,
-          splitStrategy: hasMixedTypes ? splitStrategy ?? undefined : undefined,
-          deliveryAddress:
-            fulfillment === "delivery" ? address.trim() : undefined,
-          locality: fulfillment === "delivery" ? locality : undefined,
-          notes: orderNotes.trim() || undefined,
-          items: items.map((item) => ({
-            ...(item.convexId
-              ? { productId: item.convexId as Id<"products"> }
-              : {}),
-            productName: item.name,
-            quantity: item.quantity,
-            unitPrice: item.price,
-            productType: item.productType,
-          })),
-          subtotal,
-          deliveryFee: deliveryFeeTotal > 0 ? deliveryFeeTotal : undefined,
-          total,
+        const orderRes = await fetch("/api/orders/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            customerName,
+            email: email.trim() || "—",
+            phone: phone.trim(),
+            deliveryType: fulfillment === "pickup" ? "pickup" : "delivery",
+            paymentMethod: payment,
+            splitStrategy: hasMixedTypes ? splitStrategy ?? undefined : undefined,
+            deliveryAddress:
+              fulfillment === "delivery" ? address.trim() : undefined,
+            locality: fulfillment === "delivery" ? locality : undefined,
+            notes: orderNotes.trim() || undefined,
+            items: items.map((item) => ({
+              ...(item.convexId ? { productId: item.convexId } : {}),
+              productName: item.name,
+              quantity: item.quantity,
+              unitPrice: item.price,
+              productType: item.productType,
+            })),
+            subtotal,
+            deliveryFee: deliveryFeeTotal > 0 ? deliveryFeeTotal : undefined,
+            total,
+          }),
         });
+        if (orderRes.ok) {
+          const data = (await orderRes.json()) as { orderId?: string };
+          orderId = data.orderId;
+        }
       }
 
       const orderNumber = orderId

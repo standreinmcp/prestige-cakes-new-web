@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AdminLogoutButton } from "@/components/admin/AdminLogoutButton";
+import { ClientOnly } from "@/components/ClientOnly";
 
 const adminNav = [
   { href: "/admin", label: "Dashboard" },
@@ -41,7 +42,15 @@ export default function AdminLayout({
         </nav>
         <AdminLogoutButton />
       </aside>
-      <main className="flex-1 bg-neutral-soft p-8">{children}</main>
+      <main className="flex-1 bg-neutral-soft p-8">
+        <ClientOnly
+          fallback={
+            <p className="text-sm text-text-muted">Se încarcă panoul...</p>
+          }
+        >
+          {children}
+        </ClientOnly>
+      </main>
     </div>
   );
 }
