@@ -6,25 +6,21 @@ const items = [
     title: "Calitate superioară",
     description: "15+ ani de experiență în producția de cofetărie fină",
     icon: "🏅",
-    featured: false,
   },
   {
     title: "Siguranță alimentară",
     description: "Certificate și standarde HACCP implementate complet",
     icon: "🛡️",
-    featured: false,
   },
   {
     title: "Echipă profesionistă",
     description: "Cofetari calificați cu studii de specialitate",
     icon: "👥",
-    featured: true,
   },
   {
     title: "Comenzi personalizate",
     description: "Cofetari calificați cu studii de specialitate",
     icon: "✨",
-    featured: false,
   },
 ];
 
@@ -38,7 +34,7 @@ export function DifferentiatorsSection() {
           {items.map((item) => (
             <article
               key={item.title}
-              className={`flex min-h-[122px] items-start gap-6 ${trustTileShell(item.featured)}`}
+              className={`flex min-h-[122px] items-start gap-6 ${trustTileShell()}`}
             >
               <span className={trustTileIconShell()}>{item.icon}</span>
               <div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import {
   CategoryFilter,
@@ -9,13 +8,11 @@ import {
 import { ProductCard, type ProductCardData } from "@/components/catalog/ProductCard";
 
 type CatalogPageProps = {
-  title: string;
-  subtitle: string;
   products: ProductCardData[];
   showQuickAdd?: boolean;
 };
 
-export function CatalogPage({ title, subtitle, products, showQuickAdd }: CatalogPageProps) {
+export function CatalogPage({ products, showQuickAdd }: CatalogPageProps) {
   const [filter, setFilter] = useState<CatalogFilterId>("popular");
 
   const filtered =
@@ -37,24 +34,6 @@ export function CatalogPage({ title, subtitle, products, showQuickAdd }: Catalog
 
   return (
     <>
-      <section className="relative h-[313px] overflow-hidden">
-        <Image
-          src="/images/home/hero.jpg"
-          alt=""
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-brand-navy/60" />
-        <div className="relative mx-auto flex h-full max-w-[984px] flex-col justify-end px-6 pb-10 pt-24 lg:px-0">
-          <h1 className="font-serif text-4xl font-semibold text-white lg:text-[36px]">
-            {title}
-          </h1>
-          <p className="mt-3 text-lg font-medium text-neutral-soft">{subtitle}</p>
-        </div>
-      </section>
-
       <section className="bg-gradient-to-b from-[#fcfcff] to-white px-6 py-8 lg:px-12">
         <div className="mx-auto max-w-[1440px]">
           <CategoryFilter active={filter} onChange={setFilter} />

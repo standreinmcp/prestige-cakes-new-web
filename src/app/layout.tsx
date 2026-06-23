@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-import { CartProvider } from "@/components/cart/CartProvider";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600"],
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
   display: "swap",
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -33,11 +33,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ConvexClientProvider>
-          <CartProvider>
-            <div className="flex min-h-full flex-1 flex-col">{children}</div>
-          </CartProvider>
-        </ConvexClientProvider>
+        <div className="flex min-h-full flex-1 flex-col">{children}</div>
       </body>
     </html>
   );

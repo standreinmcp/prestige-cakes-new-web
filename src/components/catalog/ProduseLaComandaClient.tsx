@@ -29,12 +29,5 @@ export function ProduseLaComandaClient() {
     );
   }
 
-  return (
-    <CatalogPage
-      title="Produsele noastere artizanale, create cu rafinament"
-      subtitle="Torturi și deserturi personalizate, pregătite în 1–2 zile lucrătoare după confirmarea comenzii."
-      products={products}
-      showQuickAdd
-    />
-  );
+  return <CatalogPage products={products} showQuickAdd />;
 }

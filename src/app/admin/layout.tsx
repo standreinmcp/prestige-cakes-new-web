@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AdminLogoutButton } from "@/components/admin/AdminLogoutButton";
-import { ClientOnly } from "@/components/ClientOnly";
+import { ConvexProviders } from "@/components/providers/ConvexProviders";
 
 const adminNav = [
   { href: "/admin", label: "Dashboard" },
@@ -24,33 +24,27 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen">
-      <aside className="w-64 shrink-0 border-r border-neutral-muted bg-brand-navy p-6 text-white">
-        <Link href="/admin" className="text-lg font-semibold">
-          Prestige Admin
-        </Link>
-        <nav className="mt-8 space-y-2" aria-label="Administrare">
-          {adminNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block rounded-lg px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <AdminLogoutButton />
-      </aside>
-      <main className="flex-1 bg-neutral-soft p-8">
-        <ClientOnly
-          fallback={
-            <p className="text-sm text-text-muted">Se încarcă panoul...</p>
-          }
-        >
-          {children}
-        </ClientOnly>
-      </main>
-    </div>
+    <ConvexProviders>
+      <div className="flex min-h-screen">
+        <aside className="w-64 shrink-0 border-r border-neutral-muted bg-brand-navy p-6 text-white">
+          <Link href="/admin" className="text-lg font-semibold">
+            Prestige Admin
+          </Link>
+          <nav className="mt-8 space-y-2" aria-label="Administrare">
+            {adminNav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block rounded-lg px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <AdminLogoutButton />
+        </aside>
+        <main className="flex-1 bg-neutral-soft p-8">{children}</main>
+      </div>
+    </ConvexProviders>
   );
 }

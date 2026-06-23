@@ -1,4 +1,14 @@
-import { AdminOrderDetail } from "@/components/admin/AdminOrderDetail";
+import dynamic from "next/dynamic";
+
+const AdminOrderDetail = dynamic(
+  () =>
+    import("@/components/admin/AdminOrderDetail").then((mod) => mod.AdminOrderDetail),
+  {
+    loading: () => (
+      <p className="text-sm text-text-muted">Se încarcă comanda...</p>
+    ),
+  },
+);
 
 type Props = {
   params: Promise<{ id: string }>;

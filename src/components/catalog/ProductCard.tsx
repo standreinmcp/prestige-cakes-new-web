@@ -18,7 +18,6 @@ export type ProductCardData = {
   priceLabel: string;
   imagePosition?: string;
   imageUrl?: string;
-  featured?: boolean;
   productType?: ProductType;
   stockQuantity?: number;
   unitPrice?: number;
@@ -34,7 +33,6 @@ export function ProductCard({ product, showQuickAdd }: ProductCardProps) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
   const imageSrc = product.imageUrl ?? "/images/home/categories.jpg";
-  const featured = Boolean(product.featured);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -63,7 +61,7 @@ export function ProductCard({ product, showQuickAdd }: ProductCardProps) {
     <article className="group relative w-full max-w-[240px]">
       <Link
         href={`/produse/${product.slug}`}
-        className={`flex flex-col ${interactiveCardShell(featured)}`}
+        className={`flex flex-col ${interactiveCardShell()}`}
       >
         <div className="relative h-60 overflow-hidden">
           <Image
@@ -107,7 +105,7 @@ export function ProductCard({ product, showQuickAdd }: ProductCardProps) {
           )}
         </div>
 
-        <div className={cardGoldAccent(featured)} aria-hidden />
+        <div className={cardGoldAccent()} aria-hidden />
       </Link>
     </article>
   );

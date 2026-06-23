@@ -1,5 +1,9 @@
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { cardGoldAccent, interactiveCardShell } from "@/lib/card-surface";
+import {
+  cardGoldAccent,
+  interactiveCardShell,
+  processStepNumber,
+} from "@/lib/card-surface";
 
 const steps = [
   {
@@ -8,7 +12,6 @@ const steps = [
     description:
       "Folosim doar ingrediente naturale, de cea mai înaltă calitate, selectate cu grijă de la furnizori certificați.",
     icon: "🌾",
-    featured: false,
   },
   {
     number: "2",
@@ -16,7 +19,6 @@ const steps = [
     description:
       "Echipa noastră de cofetari experimentați lucrează zilnic în laboratorul nostru profesional, cu pasiune și precizie.",
     icon: "👨‍🍳",
-    featured: true,
   },
   {
     number: "3",
@@ -24,7 +26,6 @@ const steps = [
     description:
       "Produsele sunt livrate proaspete în aceeași zi, cu condiții optime de transport pentru păstrarea calității.",
     icon: "🚐",
-    featured: false,
   },
 ];
 
@@ -42,14 +43,9 @@ export function ProcessSection() {
           {steps.map((step) => (
             <article
               key={step.number}
-              className={`group relative flex h-[269px] flex-col p-7 ${interactiveCardShell(step.featured)}`}
+              className={`group relative flex h-[269px] flex-col p-7 ${interactiveCardShell()}`}
             >
-              <span
-                className={`pointer-events-none absolute right-4 top-[-20px] font-serif text-[128px] font-semibold leading-none ${
-                  step.featured ? "text-brand-gold/30" : "text-brand-lilac"
-                }`}
-                aria-hidden
-              >
+              <span className={processStepNumber()} aria-hidden>
                 {step.number}
               </span>
 
@@ -67,7 +63,7 @@ export function ProcessSection() {
               </div>
 
               <div
-                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent(step.featured)}`}
+                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent()}`}
                 aria-hidden
               />
             </article>

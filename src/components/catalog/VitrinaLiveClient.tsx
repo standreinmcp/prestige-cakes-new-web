@@ -30,12 +30,5 @@ export function VitrinaLiveClient() {
     );
   }
 
-  return (
-    <CatalogPage
-      title="Produsele noastere artizanale, create cu rafinament"
-      subtitle="Prăjituri proaspete, realizate zilnic din ingrediente atent alese. Disponibile azi — stoc limitat."
-      products={products}
-      showQuickAdd
-    />
-  );
+  return <CatalogPage products={products} showQuickAdd />;
 }

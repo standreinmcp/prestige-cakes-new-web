@@ -8,7 +8,6 @@ const testimonials = [
     name: "Maria Popescu",
     role: "Client corporativ",
     initial: "M",
-    featured: false,
   },
   {
     quote:
@@ -16,7 +15,6 @@ const testimonials = [
     name: "Alexandru Ionescu",
     role: "Client privat",
     initial: "A",
-    featured: true,
   },
   {
     quote:
@@ -24,7 +22,6 @@ const testimonials = [
     name: "Elena Dumitrescu",
     role: "Organizator evenimente",
     initial: "E",
-    featured: false,
   },
 ];
 
@@ -48,7 +45,7 @@ export function TestimonialsSection() {
           {testimonials.map((item) => (
             <article
               key={item.name}
-              className={`group relative flex h-[262px] flex-col p-[26px] ${interactiveCardShell(item.featured)}`}
+              className={`group relative flex h-[262px] flex-col p-[26px] ${interactiveCardShell()}`}
             >
               <span
                 className="pointer-events-none absolute right-4 top-[-10px] font-serif text-7xl text-brand-gold/15"
@@ -72,7 +69,7 @@ export function TestimonialsSection() {
                 </div>
               </div>
               <div
-                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent(item.featured)}`}
+                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent()}`}
                 aria-hidden
               />
             </article>

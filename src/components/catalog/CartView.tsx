@@ -32,7 +32,6 @@ export function CartView() {
           alt=""
           fill
           className="object-cover"
-          priority
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-brand-navy/60" />

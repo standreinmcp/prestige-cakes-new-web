@@ -1,5 +1,14 @@
-import { GalleryGrid } from "@/components/gallery/GalleryGrid";
-import { ClientOnly } from "@/components/ClientOnly";
+import dynamic from "next/dynamic";
+
+const GalleryGrid = dynamic(
+  () =>
+    import("@/components/gallery/GalleryGrid").then((mod) => mod.GalleryGrid),
+  {
+    loading: () => (
+      <p className="py-12 text-center text-text-muted">Se încarcă galeria...</p>
+    ),
+  },
+);
 
 export default function GalerieFotoPage() {
   return (
@@ -14,13 +23,7 @@ export default function GalerieFotoPage() {
           </p>
         </div>
       </section>
-      <ClientOnly
-        fallback={
-          <p className="py-12 text-center text-text-muted">Se încarcă galeria...</p>
-        }
-      >
-        <GalleryGrid />
-      </ClientOnly>
+      <GalleryGrid />
     </>
   );
 }

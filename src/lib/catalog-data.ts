@@ -20,7 +20,6 @@ export const vitrinaProducts: ProductCardData[] = [
     priceLabel: "75 lei / kg",
     imagePosition: "33% 0%",
     productType: "live",
-    featured: true,
     stockQuantity: 0,
   },
   {
@@ -102,7 +101,6 @@ export const madeToOrderProducts: ProductCardData[] = [
     portion: "1.5 kg / tort.",
     priceLabel: "165 lei / kg",
     imagePosition: "25% 25%",
-    featured: true,
     productType: "made_to_order",
   },
   {
