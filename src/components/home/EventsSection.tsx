@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 
 const services = [
-  "Selecții potrivite pentru diverse tipuri de evenimente",
+  "Selecții potrivite pentru diverse evenimente",
   "Cantități adaptate numărului de invitați",
   "Posibilități variate de prezentare",
   "Ofertă personalizată la cerere",
@@ -19,7 +19,18 @@ export function EventsSection() {
           <p className="mt-4 text-lg font-medium text-brand-navy/80">
             Selecții elegante de prăjituri pentru momentele speciale.
           </p>
-          <p className="mt-10 max-w-[435px] text-base leading-relaxed text-brand-navy/80">
+
+          <div className="relative mt-8 min-h-[320px] overflow-hidden lg:hidden">
+            <Image
+              src="/images/home/events-collage.jpg"
+              alt="Deserturi pentru evenimente"
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+          </div>
+
+          <p className="mt-10 max-w-[435px] text-base leading-relaxed text-brand-navy/80 lg:mt-10">
             Pregătim selecții de prăjituri pentru evenimente private sau
             corporate. Fiecare eveniment este diferit, iar oferta este adaptată în
             funcție de tipul evenimentului și numărul de invitați.
@@ -41,7 +52,7 @@ export function EventsSection() {
           </Button>
         </div>
 
-        <div className="relative min-h-[320px] lg:min-h-[765px]">
+        <div className="relative hidden min-h-[765px] lg:block">
           <Image
             src="/images/home/events-collage.jpg"
             alt="Deserturi pentru evenimente"

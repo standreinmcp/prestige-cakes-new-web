@@ -223,3 +223,73 @@ export function SparkleIcon({ className = "h-[34px] w-[34px]" }: IconProps) {
     </svg>
   );
 }
+
+export function PhoneIcon({ className = "h-[19px] w-[19px]" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 19 19" fill="none" aria-hidden>
+      <path
+        d="M5.5 3h2l1 4-2.5 1.5a11 11 0 005.5 5.5L13 11.5l4 1v2a2 2 0 01-2 2A12 12 0 013 5.5a2 2 0 012-2.5z"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function MailIcon({ className = "h-[19px] w-[19px]" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 19 19" fill="none" aria-hidden>
+      <rect x="2.5" y="4.5" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M3 6l6.5 4.5L16 6" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function MapPinIcon({ className = "h-[19px] w-[19px]" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 19 19" fill="none" aria-hidden>
+      <path
+        d="M9.5 16.5s5.5-4.5 5.5-8a5.5 5.5 0 10-11 0c0 3.5 5.5 8 5.5 8z"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinejoin="round"
+      />
+      <circle cx="9.5" cy="8.5" r="2" stroke="currentColor" strokeWidth="1.25" />
+    </svg>
+  );
+}
+
+export function FacebookIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+      <path d="M11.5 10.5H13l-.5-2h-1.5V7.5c0-.6.2-1 1-1h.8V4.5h-1.3c-1.8 0-2.5 1-2.5 2.5V8.5H8v2h1.5v5h2v-5z" />
+    </svg>
+  );
+}
+
+export function InstagramIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none" aria-hidden>
+      <rect x="3.5" y="3.5" width="13" height="13" rx="3.5" stroke="currentColor" strokeWidth="1.25" />
+      <circle cx="10" cy="10" r="3" stroke="currentColor" strokeWidth="1.25" />
+      <circle cx="14" cy="6" r="0.75" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function TikTokIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+      <path d="M12.5 3.5c.5 1.8 1.8 3.2 3.5 3.7V9.5c-1.3 0-2.5-.4-3.5-1.1v5.1a4.5 4.5 0 11-2.7-4.1 4.6 4.6 0 002.2.6v-2.2a2.4 2.4 0 01-1.3-.4 2.3 2.3 0 01-1.2-2V3.5h2z" />
+    </svg>
+  );
+}
+
+export function WhatsAppIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+      <path d="M10 3a7 7 0 00-6 10.3L3 17l3.8-1A7 7 0 1010 3zm0 1.5a5.5 5.5 0 014.2 9.1l-.3.2-.1.3-.6 2.1 2.1-.6.3-.1.2-.3A5.5 5.5 0 0010 4.5zm-2.2 2.3c.1 0 .3 0 .4.3l.6 1.3c.1.2 0 .4-.1.5l-.4.4c-.1.1-.1.2 0 .4.6 1.1 1.5 2 2.6 2.6.2.1.3.1.4 0l.4-.4c.1-.1.3-.2.5-.1l1.3.6c.3.1.3.3.3.4 0 .8-.6 1.5-1.4 1.5-.3 0-.7-.1-1.8-.6-2.3-1-4-2.7-5-5-.5-1.1-.6-1.5-.6-1.8 0-.8.7-1.4 1.5-1.4z" />
+    </svg>
+  );
+}

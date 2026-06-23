@@ -15,7 +15,7 @@ const categories = [
     slug: "croissante",
     name: "Croissante",
     description:
-      "Croissante fragede cu fistic, coapte zilnic, realizate cu ingrediente premium și atenție la detalii fin!",
+      "Croissante fragede cu unt, coapte zilnic, realizate cu ingrediente premium și atenție la detalii fin!",
     image: "/images/home/categories/croissante.jpg",
   },
   {
@@ -80,7 +80,7 @@ export function CategoryCarousel() {
         <div className="relative mt-16">
           <button
             type="button"
-            className="absolute -left-2 top-1/2 z-10 hidden -translate-y-1/2 rotate-180 disabled:opacity-30 lg:block"
+            className="absolute top-1/2 z-10 hidden -translate-y-1/2 rotate-180 disabled:opacity-30 lg:-left-2 lg:block"
             aria-label="Categorie anterioară"
             disabled={!canScrollPrev}
             onClick={() => scrollByCard(-1)}
@@ -130,13 +130,34 @@ export function CategoryCarousel() {
 
           <button
             type="button"
-            className="absolute -right-2 top-1/2 z-10 hidden -translate-y-1/2 disabled:opacity-30 lg:block"
+            className="absolute top-1/2 z-10 hidden -translate-y-1/2 disabled:opacity-30 lg:-right-2 lg:block"
             aria-label="Categorie următoare"
             disabled={!canScrollNext}
             onClick={() => scrollByCard(1)}
           >
             <CaretCircleIcon />
           </button>
+
+          <div className="mt-6 flex items-center justify-center gap-8 lg:hidden">
+            <button
+              type="button"
+              className="rotate-180 disabled:opacity-30"
+              aria-label="Categorie anterioară"
+              disabled={!canScrollPrev}
+              onClick={() => scrollByCard(-1)}
+            >
+              <CaretCircleIcon />
+            </button>
+            <button
+              type="button"
+              className="disabled:opacity-30"
+              aria-label="Categorie următoare"
+              disabled={!canScrollNext}
+              onClick={() => scrollByCard(1)}
+            >
+              <CaretCircleIcon />
+            </button>
+          </div>
         </div>
       </div>
     </section>

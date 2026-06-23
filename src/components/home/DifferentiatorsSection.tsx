@@ -30,7 +30,7 @@ const items: {
   },
   {
     title: "Comenzi personalizate",
-    description: "Cofetari calificați cu studii de specialitate",
+    description: "Torturi și deserturi create după preferințele tale",
     icon: <SparkleIcon className="text-brand-gold" />,
   },
 ];
@@ -41,11 +41,11 @@ export function DifferentiatorsSection() {
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <SectionHeader badge="De ce noi" title="Ce ne face diferiți" />
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
+        <div className="mt-16 flex flex-col items-center gap-6 lg:grid lg:grid-cols-2 lg:gap-8">
           {items.map((item) => (
             <article
               key={item.title}
-              className={`flex min-h-[122px] flex-col items-center gap-4 text-center lg:flex-row lg:items-start lg:gap-6 lg:text-left ${trustTileShell()}`}
+              className={`flex min-h-[214px] w-full max-w-[310px] flex-col items-center gap-4 p-6 text-center lg:max-w-none lg:flex-row lg:items-start lg:gap-6 lg:p-7 lg:text-left ${trustTileShell()}`}
             >
               <span className={trustTileIconShell()}>{item.icon}</span>
               <div>

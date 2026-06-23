@@ -14,7 +14,7 @@ import {
 
 type LanguageSelectorProps = {
   locale: Locale;
-  variant?: "hero" | "default";
+  variant?: "hero" | "default" | "overlay";
   onLocaleChange?: (locale: Locale) => void;
 };
 
@@ -37,7 +37,7 @@ export function LanguageSelector({
   const [open, setOpen] = useState(false);
   const [locale, setLocale] = useState<Locale>(initialLocale);
   const rootRef = useRef<HTMLDivElement>(null);
-  const isHero = variant === "hero";
+  const isHero = variant === "hero" || variant === "overlay";
 
   useEffect(() => {
     setLocale(parseLocale(initialLocale));
@@ -72,7 +72,9 @@ export function LanguageSelector({
     <div ref={rootRef} className="relative">
       <button
         type="button"
-        className={`flex items-center gap-3 rounded-md py-2 pl-3 pr-4 ${textClass}`}
+        className={`flex items-center gap-3 rounded-md py-2 ${
+          variant === "overlay" ? "pl-0 pr-2" : "pl-3 pr-4"
+        } ${textClass}`}
         aria-label="Selector limbă"
         aria-expanded={open}
         aria-haspopup="listbox"

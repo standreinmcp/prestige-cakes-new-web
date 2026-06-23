@@ -58,19 +58,19 @@ export function Hero() {
       <a
         href="#categorii"
         className="absolute bottom-36 left-1/2 z-10 flex -translate-x-1/2 animate-bounce flex-col items-center text-neutral-soft hover:text-brand-gold"
-        aria-label="Descoperă categorii"
+        aria-label="Explorează categorii"
       >
-        <span className="text-lg font-medium">Descoperă</span>
+        <span className="text-lg font-medium">Explorează</span>
         <ChevronRightIcon className="h-6 w-6 rotate-90" />
       </a>
 
       <div className="absolute inset-x-0 bottom-0">
-        <div className="mx-auto flex max-w-[883px] items-center justify-center gap-0 px-6 py-10 sm:gap-[100px]">
+        <div className="mx-auto flex max-w-[883px] items-center justify-center gap-0 px-6 py-10">
           {stats.map((stat, index) => (
             <div key={stat.label} className="flex items-center">
               {index > 0 ? (
                 <div
-                  className="mx-4 hidden h-20 w-px bg-[#686868] sm:mx-0 sm:block"
+                  className="mx-4 h-20 w-px bg-[#686868] sm:mx-0"
                   aria-hidden
                 />
               ) : null}

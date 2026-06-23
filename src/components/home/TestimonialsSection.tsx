@@ -81,7 +81,7 @@ export function TestimonialsSection() {
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <SectionHeader badge="Testimoniale" title="Ce spun clienții noștri" />
 
-        <div className="-mx-6 mt-16 flex snap-x snap-mandatory gap-[66px] overflow-x-auto px-6 pb-2 scrollbar-none lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
+        <div className="mt-16 flex flex-col items-center gap-[22px] lg:grid lg:grid-cols-3 lg:gap-[66px] lg:overflow-visible">
           {testimonials.map((item) => (
             <TestimonialCard key={item.name} item={item} />
           ))}
