@@ -42,16 +42,13 @@ export function EventsSection() {
         </div>
 
         <div className="relative min-h-[320px] lg:min-h-[765px]">
-          <div className="absolute inset-0 bg-brand-gold lg:left-[-120px] lg:skew-x-[-8deg]" />
-          <div className="relative h-full min-h-[320px] lg:min-h-[765px]">
-            <Image
-              src="/images/home/categories.jpg"
-              alt="Deserturi pentru evenimente"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
+          <Image
+            src="/images/home/events-collage.jpg"
+            alt="Deserturi pentru evenimente"
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
         </div>
       </div>
     </section>

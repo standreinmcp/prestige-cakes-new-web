@@ -1,3 +1,5 @@
+"use client";
+
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cardGoldAccent, interactiveCardShell } from "@/lib/card-surface";
 
@@ -35,44 +37,53 @@ function Stars() {
   );
 }
 
+function TestimonialCard({
+  item,
+}: {
+  item: (typeof testimonials)[number];
+}) {
+  return (
+    <article
+      className={`group relative flex h-[262px] w-[310px] shrink-0 snap-center flex-col p-[26px] lg:w-auto lg:shrink ${interactiveCardShell()}`}
+    >
+      <span
+        className="pointer-events-none absolute right-4 top-[-10px] font-serif text-7xl text-brand-gold/15"
+        aria-hidden
+      >
+        &ldquo;
+      </span>
+      <Stars />
+      <p className="mt-4 flex-1 text-base leading-relaxed text-text-muted">
+        &ldquo;{item.quote}&rdquo;
+      </p>
+      <div className="mt-4 flex items-end gap-3">
+        <span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-brand-navy font-semibold text-[22px] text-brand-gold">
+          {item.initial}
+        </span>
+        <div>
+          <p className="font-serif text-lg font-semibold text-brand-navy">
+            {item.name}
+          </p>
+          <p className="text-sm text-text-muted">{item.role}</p>
+        </div>
+      </div>
+      <div
+        className={`absolute inset-x-0 bottom-0 ${cardGoldAccent()}`}
+        aria-hidden
+      />
+    </article>
+  );
+}
+
 export function TestimonialsSection() {
   return (
     <section className="bg-gradient-to-b from-[#fcfcff] to-white py-16 lg:py-24">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <SectionHeader badge="Testimoniale" title="Ce spun clienții noștri" />
 
-        <div className="mt-16 grid gap-[66px] lg:grid-cols-3">
+        <div className="-mx-6 mt-16 flex snap-x snap-mandatory gap-[66px] overflow-x-auto px-6 pb-2 scrollbar-none lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
           {testimonials.map((item) => (
-            <article
-              key={item.name}
-              className={`group relative flex h-[262px] flex-col p-[26px] ${interactiveCardShell()}`}
-            >
-              <span
-                className="pointer-events-none absolute right-4 top-[-10px] font-serif text-7xl text-brand-gold/15"
-                aria-hidden
-              >
-                &ldquo;
-              </span>
-              <Stars />
-              <p className="mt-4 flex-1 text-base leading-relaxed text-text-muted">
-                &ldquo;{item.quote}&rdquo;
-              </p>
-              <div className="mt-4 flex items-end gap-3">
-                <span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-brand-navy font-semibold text-[22px] text-brand-gold">
-                  {item.initial}
-                </span>
-                <div>
-                  <p className="font-serif text-lg font-semibold text-brand-navy">
-                    {item.name}
-                  </p>
-                  <p className="text-sm text-text-muted">{item.role}</p>
-                </div>
-              </div>
-              <div
-                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent()}`}
-                aria-hidden
-              />
-            </article>
+            <TestimonialCard key={item.name} item={item} />
           ))}
         </div>
       </div>

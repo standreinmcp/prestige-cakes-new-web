@@ -1,26 +1,37 @@
+import {
+  MedalIcon,
+  ShieldIcon,
+  SparkleIcon,
+  TeamIcon,
+} from "@/components/icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { trustTileIconShell, trustTileShell } from "@/lib/card-surface";
+import type { ReactNode } from "react";
 
-const items = [
+const items: {
+  title: string;
+  description: string;
+  icon: ReactNode;
+}[] = [
   {
     title: "Calitate superioară",
     description: "15+ ani de experiență în producția de cofetărie fină",
-    icon: "🏅",
+    icon: <MedalIcon className="text-brand-gold" />,
   },
   {
     title: "Siguranță alimentară",
     description: "Certificate și standarde HACCP implementate complet",
-    icon: "🛡️",
+    icon: <ShieldIcon className="text-brand-gold" />,
   },
   {
     title: "Echipă profesionistă",
     description: "Cofetari calificați cu studii de specialitate",
-    icon: "👥",
+    icon: <TeamIcon className="text-brand-gold" />,
   },
   {
     title: "Comenzi personalizate",
     description: "Cofetari calificați cu studii de specialitate",
-    icon: "✨",
+    icon: <SparkleIcon className="text-brand-gold" />,
   },
 ];
 
@@ -34,7 +45,7 @@ export function DifferentiatorsSection() {
           {items.map((item) => (
             <article
               key={item.title}
-              className={`flex min-h-[122px] items-start gap-6 ${trustTileShell()}`}
+              className={`flex min-h-[122px] flex-col items-center gap-4 text-center lg:flex-row lg:items-start lg:gap-6 lg:text-left ${trustTileShell()}`}
             >
               <span className={trustTileIconShell()}>{item.icon}</span>
               <div>

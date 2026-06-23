@@ -11,8 +11,18 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-brand-navy text-white">
-      <div className="mx-auto max-w-[1440px] px-6 py-12 lg:px-12">
+    <footer className="relative overflow-hidden text-white">
+      <Image
+        src="/images/home/hero.jpg"
+        alt=""
+        fill
+        className="object-cover blur-[6px] scale-105"
+        sizes="100vw"
+        aria-hidden
+      />
+      <div className="absolute inset-0 bg-black/70" aria-hidden />
+
+      <div className="relative mx-auto max-w-[1440px] px-6 py-12 lg:px-12">
         <div className="flex flex-col items-center">
           <Logo variant="light" size={98} />
           <div className="mt-6 flex gap-4">

@@ -1,31 +1,42 @@
+import {
+  ChefHatIcon,
+  VanIcon,
+  WheatIcon,
+} from "@/components/icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
   cardGoldAccent,
   interactiveCardShell,
   processStepNumber,
 } from "@/lib/card-surface";
+import type { ReactNode } from "react";
 
-const steps = [
+const steps: {
+  number: string;
+  title: string;
+  description: string;
+  icon: ReactNode;
+}[] = [
   {
     number: "1",
     title: "Ingrediente selectate",
     description:
       "Folosim doar ingrediente naturale, de cea mai înaltă calitate, selectate cu grijă de la furnizori certificați.",
-    icon: "🌾",
+    icon: <WheatIcon className="text-brand-gold" />,
   },
   {
     number: "2",
     title: "Preparare artizanală",
     description:
       "Echipa noastră de cofetari experimentați lucrează zilnic în laboratorul nostru profesional, cu pasiune și precizie.",
-    icon: "👨‍🍳",
+    icon: <ChefHatIcon className="text-brand-gold" />,
   },
   {
     number: "3",
     title: "Livrare proaspătă",
     description:
       "Produsele sunt livrate proaspete în aceeași zi, cu condiții optime de transport pentru păstrarea calității.",
-    icon: "🚐",
+    icon: <VanIcon className="text-brand-gold" />,
   },
 ];
 
@@ -39,17 +50,17 @@ export function ProcessSection() {
           subtitle="De la selecția ingredientelor până la livrare, fiecare pas este monitorizat cu atenție"
         />
 
-        <div className="mt-16 grid gap-[66px] lg:grid-cols-3">
+        <div className="mx-auto mt-16 grid max-w-[1062px] gap-[66px] lg:grid-cols-3">
           {steps.map((step) => (
             <article
               key={step.number}
-              className={`group relative flex h-[269px] flex-col p-7 ${interactiveCardShell()}`}
+              className={`group relative mx-auto flex h-[269px] w-full max-w-[310px] flex-col p-7 ${interactiveCardShell()}`}
             >
               <span className={processStepNumber()} aria-hidden>
                 {step.number}
               </span>
 
-              <div className="flex h-[70px] w-[70px] items-center justify-center rounded-2xl bg-brand-navy text-2xl text-brand-gold">
+              <div className="flex h-[70px] w-[70px] items-center justify-center rounded-2xl bg-brand-navy">
                 {step.icon}
               </div>
 

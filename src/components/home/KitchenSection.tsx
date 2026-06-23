@@ -4,8 +4,18 @@ import { Button } from "@/components/ui/Button";
 export function KitchenSection() {
   return (
     <section className="bg-gradient-to-b from-[#fcfcff] to-white py-16 lg:py-24">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-[122px] px-6 lg:grid-cols-[463px_1fr] lg:px-12">
-        <div className="flex flex-col gap-3">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-6 lg:grid-cols-[463px_1fr] lg:gap-[122px] lg:px-12">
+        <div className="order-1 relative min-h-[310px] overflow-hidden rounded-[40px] shadow-[0_8px_20px_rgba(0,0,0,0.12)] lg:order-2 lg:min-h-[477px]">
+          <Image
+            src="/images/home/kitchen.jpg"
+            alt="Laborator Prestige Cakes"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 477px"
+          />
+        </div>
+
+        <div className="order-2 flex flex-col gap-3 lg:order-1">
           <span className="inline-flex w-fit rounded-full bg-brand-gold/30 px-[22px] py-2 text-base font-medium text-brand-gold">
             Laboratorul nostru
           </span>
@@ -34,16 +44,6 @@ export function KitchenSection() {
               Fă-ne o vizită
             </Button>
           </a>
-        </div>
-
-        <div className="relative min-h-[320px] overflow-hidden rounded-[40px] shadow-[0_8px_20px_rgba(0,0,0,0.12)] lg:min-h-[477px]">
-          <Image
-            src="/images/home/kitchen.jpg"
-            alt="Laborator Prestige Cakes"
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 477px"
-          />
         </div>
       </div>
     </section>
