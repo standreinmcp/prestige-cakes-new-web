@@ -1,5 +1,7 @@
+import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { LOCALE_COOKIE, parseLocale } from "@/lib/locale";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,14 +24,17 @@ export const metadata: Metadata = {
     "Deserturi premium pentru momente speciale. Produse zilnic, din ingrediente naturale, la standarde profesionale.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const locale = parseLocale(cookieStore.get(LOCALE_COOKIE)?.value);
+
   return (
     <html
-      lang="ro"
+      lang={locale}
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

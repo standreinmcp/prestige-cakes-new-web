@@ -2,19 +2,39 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
-import { CartIcon, ChevronDownIcon } from "@/components/icons";
+import { CartIcon } from "@/components/icons";
+import { LanguageSelector } from "@/components/layout/LanguageSelector";
+import { getNavLabel } from "@/lib/i18n/nav";
+import { LOCALE_COOKIE, type Locale, parseLocale } from "@/lib/locale";
 import { navLinks } from "@/lib/nav-links";
 
 type MainNavProps = {
   variant?: "hero" | "default";
+  initialLocale?: Locale;
 };
 
-export function MainNav({ variant = "default" }: MainNavProps) {
+function readLocaleFromDocument(): Locale {
+  if (typeof document === "undefined") return "ro";
+  const cookieMatch = document.cookie.match(
+    new RegExp(`(?:^|; )${LOCALE_COOKIE}=(ro|en)(?:;|$)`),
+  );
+  return parseLocale(cookieMatch?.[1] ?? document.documentElement.lang);
+}
+
+export function MainNav({
+  variant = "default",
+  initialLocale = "ro",
+}: MainNavProps) {
   const pathname = usePathname();
   const isHero = variant === "hero";
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [locale, setLocale] = useState<Locale>(initialLocale);
+
+  useEffect(() => {
+    setLocale(readLocaleFromDocument());
+  }, [initialLocale]);
 
   const linkClass = (href: string) => {
     const isActive = pathname === href;
@@ -45,20 +65,20 @@ export function MainNav({ variant = "default" }: MainNavProps) {
           aria-label="Navigare principală"
         >
           {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={linkClass(link.href)}
-              >
-                {link.label}
-                {"live" in link && link.live ? (
-                  <span className="text-red-500" aria-hidden>
-                    {" "}
-                    ◉
-                  </span>
-                ) : null}
-              </Link>
-            ))}
+            <Link
+              key={link.href}
+              href={link.href}
+              className={linkClass(link.href)}
+            >
+              {getNavLabel(locale, link.labelKey)}
+              {"live" in link && link.live ? (
+                <span className="text-red-500" aria-hidden>
+                  {" "}
+                  ◉
+                </span>
+              ) : null}
+            </Link>
+          ))}
 
           <Link
             href="/cos"
@@ -73,31 +93,23 @@ export function MainNav({ variant = "default" }: MainNavProps) {
             <span className="absolute -right-1 -top-1 h-[11px] w-[11px] rounded-full bg-brand-gold" />
           </Link>
 
-          <button
-            type="button"
-            className={`flex items-center gap-3 rounded-md py-2 pl-3 pr-4 ${
-              isHero ? "text-white" : "text-brand-navy"
-            }`}
-            aria-label="Selector limbă"
-          >
-            <span
-              className="flex h-5 w-5 overflow-hidden rounded-full"
-              aria-hidden
-            >
-              <span className="h-full w-1/3 bg-[#002b7f]" />
-              <span className="h-full w-1/3 bg-[#fcd116]" />
-              <span className="h-full w-1/3 bg-[#ce1126]" />
-            </span>
-            <span className="text-[19px] leading-5">Română</span>
-            <ChevronDownIcon />
-          </button>
+          <LanguageSelector
+            locale={locale}
+            variant={variant}
+            onLocaleChange={setLocale}
+          />
         </nav>
 
         <div
-          className={`flex items-center gap-4 lg:hidden ${
+          className={`flex items-center gap-2 lg:hidden ${
             isHero ? "text-white" : "text-brand-navy"
           }`}
         >
+          <LanguageSelector
+            locale={locale}
+            variant={variant}
+            onLocaleChange={setLocale}
+          />
           <Link href="/cos" aria-label="Coș cumpărături">
             <CartIcon />
           </Link>
@@ -139,6 +151,13 @@ export function MainNav({ variant = "default" }: MainNavProps) {
           }`}
           aria-label="Navigare mobilă"
         >
+          <div className="mb-4">
+            <LanguageSelector
+            locale={locale}
+            variant={variant}
+            onLocaleChange={setLocale}
+          />
+          </div>
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <Link
@@ -147,7 +166,7 @@ export function MainNav({ variant = "default" }: MainNavProps) {
                 className={linkClass(link.href)}
                 onClick={() => setMobileOpen(false)}
               >
-                {link.label}
+                {getNavLabel(locale, link.labelKey)}
                 {"live" in link && link.live ? (
                   <span className="text-red-500" aria-hidden>
                     {" "}

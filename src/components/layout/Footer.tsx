@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Logo } from "@/components/brand/Logo";
+import { getNavLabel } from "@/lib/i18n/nav";
+import { LOCALE_COOKIE, parseLocale } from "@/lib/locale";
 import { footerQuickLinks } from "@/lib/nav-links";
 
 const legalLinks = [
@@ -9,7 +12,10 @@ const legalLinks = [
   { href: "/termeni", label: "T&C" },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const cookieStore = await cookies();
+  const locale = parseLocale(cookieStore.get(LOCALE_COOKIE)?.value);
+
   return (
     <footer className="relative overflow-hidden text-white">
       <Image
@@ -46,7 +52,7 @@ export function Footer() {
                 {footerQuickLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="underline hover:text-brand-gold">
-                      {link.label}
+                      {getNavLabel(locale, link.labelKey)}
                     </Link>
                   </li>
                 ))}

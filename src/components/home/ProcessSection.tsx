@@ -1,42 +1,32 @@
-import {
-  ChefHatIcon,
-  VanIcon,
-  WheatIcon,
-} from "@/components/icons";
+import Image from "next/image";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
   cardGoldAccent,
   interactiveCardShell,
   processStepNumber,
 } from "@/lib/card-surface";
-import type { ReactNode } from "react";
 
-const steps: {
-  number: string;
-  title: string;
-  description: string;
-  icon: ReactNode;
-}[] = [
+const steps = [
   {
     number: "1",
     title: "Ingrediente selectate",
     description:
       "Folosim doar ingrediente naturale, de cea mai înaltă calitate, selectate cu grijă de la furnizori certificați.",
-    icon: <WheatIcon className="text-brand-gold" />,
+    icon: "/icons/process/wheat.svg",
   },
   {
     number: "2",
     title: "Preparare artizanală",
     description:
       "Echipa noastră de cofetari experimentați lucrează zilnic în laboratorul nostru profesional, cu pasiune și precizie.",
-    icon: <ChefHatIcon className="text-brand-gold" />,
+    icon: "/icons/process/chef-hat.svg",
   },
   {
     number: "3",
     title: "Livrare proaspătă",
     description:
       "Produsele sunt livrate proaspete în aceeași zi, cu condiții optime de transport pentru păstrarea calității.",
-    icon: <VanIcon className="text-brand-gold" />,
+    icon: "/icons/process/van.svg",
   },
 ];
 
@@ -54,14 +44,21 @@ export function ProcessSection() {
           {steps.map((step) => (
             <article
               key={step.number}
-              className={`group relative mx-auto flex h-[269px] w-full max-w-[310px] flex-col p-7 ${interactiveCardShell()}`}
+              className={`group relative mx-auto flex min-h-[269px] w-full max-w-[310px] flex-col p-7 ${interactiveCardShell()}`}
             >
               <span className={processStepNumber()} aria-hidden>
                 {step.number}
               </span>
 
               <div className="flex h-[70px] w-[70px] items-center justify-center rounded-2xl bg-brand-navy">
-                {step.icon}
+                <Image
+                  src={step.icon}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="h-8 w-8"
+                  aria-hidden
+                />
               </div>
 
               <div className="mt-8 max-w-[256px]">
