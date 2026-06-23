@@ -44,7 +44,7 @@ export function HeroCarousel() {
             fill
             priority={index === 0}
             fetchPriority={index === 0 ? "high" : "auto"}
-            className={`scale-105 object-cover blur-[6px] transition-opacity duration-1000 ${
+            className={`object-cover transition-opacity duration-1000 ${
               isActive ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
             sizes="(max-width: 768px) 100vw, 1440px"

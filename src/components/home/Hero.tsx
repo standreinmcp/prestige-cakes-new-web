@@ -13,7 +13,7 @@ export function Hero() {
   return (
     <section className="relative min-h-[844px] overflow-hidden lg:min-h-[945px]">
       <HeroCarousel />
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-[34px]" />
+      <div className="absolute inset-0 bg-black/70" />
 
       <div className="relative mx-auto flex max-w-[741px] flex-col items-center px-6 pt-24 text-center lg:px-0 lg:pt-[234px]">
         <Logo variant="light" size={124} className="mb-6 lg:hidden" />
