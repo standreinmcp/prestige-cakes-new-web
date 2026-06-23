@@ -34,14 +34,14 @@ export function CatalogPage({ products, showQuickAdd }: CatalogPageProps) {
 
   return (
     <>
-      <section className="bg-gradient-to-b from-[#fcfcff] to-white px-6 py-8 lg:px-12">
+      <section className="relative z-10 -mt-2 bg-gradient-to-b from-[#fcfcff] to-white px-6 py-6 lg:mt-0 lg:px-12 lg:py-8">
         <div className="mx-auto max-w-[1440px]">
           <CategoryFilter active={filter} onChange={setFilter} />
         </div>
       </section>
 
-      <section className="bg-white px-6 pb-20 lg:px-12">
-        <div className="mx-auto grid max-w-[1062px] justify-items-center gap-x-[34px] gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="bg-white px-6 pb-20 pt-4 lg:px-12">
+        <div className="mx-auto flex max-w-[1062px] flex-col items-center gap-8 lg:grid lg:grid-cols-4 lg:justify-items-center lg:gap-x-[34px] lg:gap-y-10">
           {filtered.map((product) => (
             <ProductCard
               key={product.slug}

@@ -5,7 +5,7 @@ export default function VitrinaLivePage() {
   return (
     <>
       <CatalogHero
-        title="Produsele noastere artizanale, create cu rafinament"
+        title="Produsele noastre artizanale, create cu rafinament"
         subtitle="Prăjituri proaspete, realizate zilnic din ingrediente atent alese. Disponibile azi — stoc limitat."
       />
       <VitrinaLiveClient />

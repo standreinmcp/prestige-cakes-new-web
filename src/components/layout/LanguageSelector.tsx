@@ -14,7 +14,7 @@ import {
 
 type LanguageSelectorProps = {
   locale: Locale;
-  variant?: "hero" | "default" | "overlay";
+  variant?: "hero" | "default" | "catalog" | "overlay";
   onLocaleChange?: (locale: Locale) => void;
 };
 
@@ -37,7 +37,7 @@ export function LanguageSelector({
   const [open, setOpen] = useState(false);
   const [locale, setLocale] = useState<Locale>(initialLocale);
   const rootRef = useRef<HTMLDivElement>(null);
-  const isHero = variant === "hero" || variant === "overlay";
+  const isHero = variant === "hero" || variant === "overlay" || variant === "catalog";
 
   useEffect(() => {
     setLocale(parseLocale(initialLocale));

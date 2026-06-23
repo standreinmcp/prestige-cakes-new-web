@@ -12,7 +12,7 @@ import { LOCALE_COOKIE, type Locale, parseLocale } from "@/lib/locale";
 import { navLinks } from "@/lib/nav-links";
 
 type MainNavProps = {
-  variant?: "hero" | "default";
+  variant?: "hero" | "default" | "catalog";
   initialLocale?: Locale;
 };
 
@@ -64,6 +64,8 @@ export function MainNav({
 }: MainNavProps) {
   const pathname = usePathname();
   const isHero = variant === "hero";
+  const isCatalog = variant === "catalog";
+  const isOverlayNav = isHero || isCatalog;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [locale, setLocale] = useState<Locale>(initialLocale);
 
@@ -89,7 +91,7 @@ export function MainNav({
     return `block px-2.5 py-2.5 font-serif text-lg font-medium transition-colors ${
       isActive
         ? "text-brand-gold"
-        : isHero
+        : isOverlayNav
           ? "text-white hover:text-brand-gold"
           : "text-brand-navy hover:text-brand-gold"
     }`;
@@ -106,18 +108,23 @@ export function MainNav({
     <>
       <header
         className={
-          isHero
+          isOverlayNav
             ? "absolute inset-x-0 top-0 z-50 bg-black/10 backdrop-blur-[2.5px] lg:bg-transparent"
             : "relative z-50 border-b border-border-card bg-white"
         }
       >
         <div
           className={`mx-auto flex max-w-[1440px] items-center px-4 lg:justify-between lg:px-[94px] ${
-            isHero ? "h-16 justify-end lg:h-auto lg:py-[30px]" : "justify-between py-4 lg:py-[30px]"
+            isOverlayNav
+              ? "h-16 justify-between lg:h-auto lg:py-[30px]"
+              : "justify-between py-4 lg:py-[30px]"
           }`}
         >
           <div className={isHero ? "hidden lg:block" : ""}>
-            <Logo variant={isHero ? "light" : "dark"} size={isHero ? 83 : 52} />
+            <Logo
+              variant={isOverlayNav ? "light" : "dark"}
+              size={isHero ? 83 : isCatalog ? 52 : 52}
+            />
           </div>
 
           <nav
@@ -142,11 +149,11 @@ export function MainNav({
 
             <Link
               href="/cos"
-              className={`relative ml-1 flex h-6 w-6 items-center justify-center ${
-                isHero
-                  ? "text-white hover:text-brand-gold"
-                  : "text-brand-navy hover:text-brand-gold"
-              }`}
+            className={`relative ml-1 flex h-6 w-6 items-center justify-center ${
+              isOverlayNav
+                ? "text-white hover:text-brand-gold"
+                : "text-brand-navy hover:text-brand-gold"
+            }`}
               aria-label="Coș cumpărături"
             >
               <CartIcon />
@@ -163,7 +170,7 @@ export function MainNav({
           <button
             type="button"
             className={`flex h-12 w-12 items-center justify-center lg:hidden ${
-              isHero ? "text-white" : "text-brand-navy"
+              isOverlayNav ? "text-white" : "text-brand-navy"
             }`}
             aria-label={mobileOpen ? "Închide meniul" : "Deschide meniul"}
             aria-expanded={mobileOpen}
@@ -182,7 +189,7 @@ export function MainNav({
           aria-label="Meniu navigare"
         >
           <div className="absolute inset-0">
-            {isHero ? (
+            {(isHero || isCatalog) ? (
               <div className="grid h-full w-full grid-cols-2 grid-rows-2">
                 {menuBackgroundImages.map((src) => (
                   <div key={src} className="relative">
@@ -249,7 +256,7 @@ export function MainNav({
                 variant="overlay"
                 onLocaleChange={setLocale}
               />
-              {isHero ? (
+              {isHero || isCatalog ? (
                 <div className="mx-auto">
                   <Logo variant="light" size={124} />
                 </div>

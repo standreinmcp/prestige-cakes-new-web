@@ -15,7 +15,7 @@ export default async function CatalogLayout({
   return (
     <CatalogProviders>
       <div className="relative">
-        <MainNav variant="hero" initialLocale={locale} />
+        <MainNav variant="catalog" initialLocale={locale} />
         {children}
       </div>
       <Footer />
