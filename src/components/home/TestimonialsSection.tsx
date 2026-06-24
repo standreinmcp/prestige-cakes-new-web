@@ -1,7 +1,11 @@
 "use client";
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { cardGoldAccent, interactiveCardShell } from "@/lib/card-surface";
+import {
+  cardGoldAccent,
+  cardShadowGutter,
+  interactiveCardShell,
+} from "@/lib/card-surface";
 
 const testimonials = [
   {
@@ -44,7 +48,7 @@ function TestimonialCard({
 }) {
   return (
     <article
-      className={`group relative flex min-h-[262px] w-full max-w-[310px] shrink-0 flex-col p-[26px] lg:w-auto lg:max-w-none lg:shrink ${interactiveCardShell()}`}
+      className={`group relative flex min-h-[262px] w-full flex-col p-[26px] ${interactiveCardShell()}`}
     >
       <span
         className="pointer-events-none absolute right-4 top-[-10px] font-serif text-7xl text-brand-gold/15"
@@ -81,9 +85,11 @@ export function TestimonialsSection() {
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <SectionHeader badge="Testimoniale" title="Ce spun clienții noștri" />
 
-        <div className="mt-16 flex flex-col items-center gap-[22px] lg:grid lg:grid-cols-3 lg:gap-[66px] lg:overflow-visible">
+        <div className="mt-16 flex flex-col items-center gap-2 py-2 lg:grid lg:grid-cols-3 lg:gap-[34px] lg:py-2">
           {testimonials.map((item) => (
-            <TestimonialCard key={item.name} item={item} />
+            <div key={item.name} className={`w-full max-w-[326px] lg:max-w-none ${cardShadowGutter()}`}>
+              <TestimonialCard item={item} />
+            </div>
           ))}
         </div>
       </div>

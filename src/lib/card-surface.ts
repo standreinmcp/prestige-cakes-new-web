@@ -2,10 +2,15 @@
 
 export function interactiveCardShell() {
   return [
-    "overflow-hidden rounded-[22px] border border-border-card bg-white",
+    "rounded-[22px] border border-border-card bg-white",
     "shadow-[0_8px_10px_rgba(0,0,0,0.12)] transition-all duration-300",
     "group-hover:-translate-y-1 group-hover:border-brand-gold group-hover:shadow-[0_20px_16px_rgba(0,0,0,0.22)]",
   ].join(" ");
+}
+
+/** Space around cards so shadows are not clipped by scroll/grid parents */
+export function cardShadowGutter() {
+  return "px-2 pt-2 pb-6";
 }
 
 export function cardGoldAccent() {

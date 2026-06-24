@@ -5,9 +5,14 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRightIcon, CaretCircleIcon } from "@/components/icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { cardGoldAccent, interactiveCardShell } from "@/lib/card-surface";
+import {
+  cardGoldAccent,
+  cardShadowGutter,
+  interactiveCardShell,
+} from "@/lib/card-surface";
 
 const CARD_WIDTH = 240;
+const CARD_GUTTER = 16;
 const CARD_GAP = 34;
 
 const categories = [
@@ -63,7 +68,7 @@ export function CategoryCarousel() {
     const el = scrollRef.current;
     if (!el) return;
     el.scrollBy({
-      left: direction * (CARD_WIDTH + CARD_GAP),
+      left: direction * (CARD_WIDTH + CARD_GUTTER + CARD_GAP),
       behavior: "smooth",
     });
   };
@@ -77,10 +82,10 @@ export function CategoryCarousel() {
           subtitle="Fiecare produs poartă semnătura pasiunii pentru un gust autentic și calitate fără compromis."
         />
 
-        <div className="relative mt-16">
+        <div className="mt-16 lg:flex lg:items-center lg:gap-2">
           <button
             type="button"
-            className="absolute top-1/2 z-10 hidden -translate-y-1/2 rotate-180 disabled:opacity-30 lg:-left-2 lg:block"
+            className="hidden shrink-0 rotate-180 disabled:opacity-30 lg:block"
             aria-label="Categorie anterioară"
             disabled={!canScrollPrev}
             onClick={() => scrollByCard(-1)}
@@ -88,18 +93,19 @@ export function CategoryCarousel() {
             <CaretCircleIcon />
           </button>
 
-          <div
-            ref={scrollRef}
-            onScroll={updateScrollState}
-            className="-mx-6 flex snap-x snap-mandatory gap-[34px] overflow-x-auto px-6 pb-2 scrollbar-none lg:mx-0 lg:px-[60px]"
-            style={{ scrollbarWidth: "none" }}
-          >
+          <div className="relative min-w-0 flex-1 overflow-visible">
+            <div
+              ref={scrollRef}
+              onScroll={updateScrollState}
+              className="-mx-6 flex snap-x snap-mandatory gap-[34px] overflow-x-auto px-6 pt-3 pb-10 scrollbar-none lg:mx-0 lg:justify-center lg:px-2 lg:pb-12"
+              style={{ scrollbarWidth: "none" }}
+            >
             {categories.map((category) => (
+              <div key={category.slug} className={`${cardShadowGutter()} shrink-0 snap-start`}>
               <article
-                key={category.slug}
-                className={`group flex w-[240px] shrink-0 snap-start flex-col ${interactiveCardShell()}`}
+                className={`group flex w-[240px] flex-col ${interactiveCardShell()}`}
               >
-                <div className="relative h-60 overflow-hidden">
+                <div className="relative h-60 overflow-hidden rounded-t-[22px]">
                   <Image
                     src={category.image}
                     alt={category.name}
@@ -125,12 +131,14 @@ export function CategoryCarousel() {
                 </div>
                 <div className={cardGoldAccent()} aria-hidden />
               </article>
+              </div>
             ))}
+            </div>
           </div>
 
           <button
             type="button"
-            className="absolute top-1/2 z-10 hidden -translate-y-1/2 disabled:opacity-30 lg:-right-2 lg:block"
+            className="hidden shrink-0 disabled:opacity-30 lg:block"
             aria-label="Categorie următoare"
             disabled={!canScrollNext}
             onClick={() => scrollByCard(1)}

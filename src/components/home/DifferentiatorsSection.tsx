@@ -5,7 +5,11 @@ import {
   TeamIcon,
 } from "@/components/icons";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { trustTileIconShell, trustTileShell } from "@/lib/card-surface";
+import {
+  cardShadowGutter,
+  trustTileIconShell,
+  trustTileShell,
+} from "@/lib/card-surface";
 import type { ReactNode } from "react";
 
 const items: {
@@ -41,11 +45,11 @@ export function DifferentiatorsSection() {
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <SectionHeader badge="De ce noi" title="Ce ne face diferiți" />
 
-        <div className="mt-16 flex flex-col items-center gap-6 lg:grid lg:grid-cols-2 lg:gap-8">
+        <div className="mt-16 flex flex-col items-center gap-2 py-2 lg:grid lg:grid-cols-2 lg:gap-4 lg:py-2">
           {items.map((item) => (
+            <div key={item.title} className={`w-full max-w-[326px] lg:max-w-none ${cardShadowGutter()}`}>
             <article
-              key={item.title}
-              className={`flex min-h-[214px] w-full max-w-[310px] flex-col items-center gap-4 p-6 text-center lg:max-w-none lg:flex-row lg:items-start lg:gap-6 lg:p-7 lg:text-left ${trustTileShell()}`}
+              className={`flex min-h-[214px] w-full flex-col items-center gap-4 p-6 text-center lg:flex-row lg:items-start lg:gap-6 lg:p-7 lg:text-left ${trustTileShell()}`}
             >
               <span className={trustTileIconShell()}>{item.icon}</span>
               <div>
@@ -57,6 +61,7 @@ export function DifferentiatorsSection() {
                 </p>
               </div>
             </article>
+            </div>
           ))}
         </div>
       </div>

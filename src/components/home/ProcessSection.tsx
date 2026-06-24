@@ -2,6 +2,7 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import {
   cardGoldAccent,
+  cardShadowGutter,
   interactiveCardShell,
   processStepNumber,
 } from "@/lib/card-surface";
@@ -40,11 +41,11 @@ export function ProcessSection() {
           subtitle="De la selecția ingredientelor până la livrare, fiecare pas este monitorizat cu atenție"
         />
 
-        <div className="mx-auto mt-16 grid max-w-[1062px] gap-[66px] lg:grid-cols-3">
+        <div className="mx-auto mt-16 grid max-w-[1062px] gap-[34px] py-2 lg:grid-cols-3 lg:gap-[66px]">
           {steps.map((step) => (
+            <div key={step.number} className={`mx-auto w-full max-w-[310px] ${cardShadowGutter()}`}>
             <article
-              key={step.number}
-              className={`group relative mx-auto flex min-h-[269px] w-full max-w-[310px] flex-col p-7 ${interactiveCardShell()}`}
+              className={`group relative flex min-h-[269px] w-full flex-col p-7 ${interactiveCardShell()}`}
             >
               <span className={processStepNumber()} aria-hidden>
                 {step.number}
@@ -75,6 +76,7 @@ export function ProcessSection() {
                 aria-hidden
               />
             </article>
+            </div>
           ))}
         </div>
       </div>
