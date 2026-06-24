@@ -71,10 +71,7 @@ export function ProcessSection() {
                 </p>
               </div>
 
-              <div
-                className={`absolute inset-x-0 bottom-0 ${cardGoldAccent()}`}
-                aria-hidden
-              />
+              <div className={cardGoldAccent()} aria-hidden />
             </article>
             </div>
           ))}

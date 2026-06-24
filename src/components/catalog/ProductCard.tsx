@@ -62,7 +62,7 @@ export function ProductCard({ product, showQuickAdd }: ProductCardProps) {
       <Link
         href={`/produse/${product.slug}`}
         className={[
-          "flex h-[150px] overflow-hidden rounded-[12px] border border-border-card bg-white shadow-[0_8px_10px_rgba(0,0,0,0.12)] transition-all duration-300",
+          "relative flex h-[150px] overflow-hidden rounded-[12px] border border-border-card bg-white shadow-[0_8px_10px_rgba(0,0,0,0.12)] transition-all duration-300",
           "lg:h-auto lg:flex-col lg:rounded-[22px] lg:group-hover:-translate-y-1 lg:group-hover:border-brand-gold lg:group-hover:shadow-[0_20px_16px_rgba(0,0,0,0.22)]",
         ].join(" ")}
       >

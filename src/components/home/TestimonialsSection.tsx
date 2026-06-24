@@ -71,10 +71,7 @@ function TestimonialCard({
           <p className="text-sm text-text-muted">{item.role}</p>
         </div>
       </div>
-      <div
-        className={`absolute inset-x-0 bottom-0 ${cardGoldAccent()}`}
-        aria-hidden
-      />
+      <div className={cardGoldAccent()} aria-hidden />
     </article>
   );
 }

@@ -2,7 +2,7 @@
 
 export function interactiveCardShell() {
   return [
-    "rounded-[22px] border border-border-card bg-white",
+    "overflow-hidden rounded-[22px] border border-border-card bg-white",
     "shadow-[0_8px_10px_rgba(0,0,0,0.12)] transition-all duration-300",
     "group-hover:-translate-y-1 group-hover:border-brand-gold group-hover:shadow-[0_20px_16px_rgba(0,0,0,0.22)]",
   ].join(" ");
@@ -15,7 +15,8 @@ export function cardShadowGutter() {
 
 export function cardGoldAccent() {
   return [
-    "h-1 shrink-0 bg-gradient-to-r from-white via-brand-gold to-white",
+    "pointer-events-none absolute inset-x-0 bottom-0 h-1 rounded-b-[22px]",
+    "bg-gradient-to-r from-white via-brand-gold to-white",
     "opacity-0 transition-opacity duration-300 group-hover:opacity-100",
   ].join(" ");
 }

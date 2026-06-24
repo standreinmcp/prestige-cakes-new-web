@@ -103,7 +103,7 @@ export function CategoryCarousel() {
             {categories.map((category) => (
               <div key={category.slug} className={`${cardShadowGutter()} shrink-0 snap-start`}>
               <article
-                className={`group flex w-[240px] flex-col ${interactiveCardShell()}`}
+                className={`group relative flex w-[240px] flex-col ${interactiveCardShell()}`}
               >
                 <div className="relative h-60 overflow-hidden rounded-t-[22px]">
                   <Image
