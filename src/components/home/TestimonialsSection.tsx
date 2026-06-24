@@ -44,7 +44,7 @@ function TestimonialCard({
 }) {
   return (
     <article
-      className={`group relative flex h-[262px] w-[310px] shrink-0 snap-center flex-col p-[26px] lg:w-auto lg:shrink ${interactiveCardShell()}`}
+      className={`group relative flex min-h-[262px] w-full max-w-[310px] shrink-0 flex-col p-[26px] lg:w-auto lg:max-w-none lg:shrink ${interactiveCardShell()}`}
     >
       <span
         className="pointer-events-none absolute right-4 top-[-10px] font-serif text-7xl text-brand-gold/15"
@@ -53,10 +53,10 @@ function TestimonialCard({
         &ldquo;
       </span>
       <Stars />
-      <p className="mt-4 flex-1 text-base leading-relaxed text-text-muted">
+      <p className="mt-4 text-base leading-relaxed text-text-muted">
         &ldquo;{item.quote}&rdquo;
       </p>
-      <div className="mt-4 flex items-end gap-3">
+      <div className="mt-4 flex items-center gap-3">
         <span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-brand-navy font-semibold text-[22px] text-brand-gold">
           {item.initial}
         </span>

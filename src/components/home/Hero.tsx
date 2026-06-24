@@ -12,7 +12,7 @@ const stats = [
 function StatsRow({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`mx-auto flex max-w-[335px] items-center justify-center ${className}`}
+      className={`mx-auto flex max-w-[335px] items-center justify-center lg:max-w-[883px] ${className}`}
     >
       {stats.map((stat, index) => (
         <div key={stat.label} className="flex items-center">
@@ -88,43 +88,40 @@ export function Hero() {
         <ExploreLink className="mt-5" />
       </div>
 
-      {/* Desktop */}
-      <div className="relative hidden lg:block">
-        <div className="relative mx-auto flex max-w-[741px] flex-col items-center px-6 pt-[234px] text-center">
-          <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-brand-gold px-[22px] py-2 text-base text-brand-gold">
-            Producem zilnic, cu pasiune
-            <WavyCheckIcon className="h-6 w-6 text-brand-gold" />
+      {/* Desktop — main copy + CTAs in flow; stats/explore anchored to section */}
+      <div className="relative mx-auto hidden max-w-[741px] flex-col items-center px-6 pt-[234px] text-center lg:flex">
+        <span className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-brand-gold px-[22px] py-2 text-base text-brand-gold">
+          Producem zilnic, cu pasiune
+          <WavyCheckIcon className="h-6 w-6 text-brand-gold" />
+        </span>
+
+        <h1 className="font-serif text-[64px] font-semibold leading-tight text-white">
+          Deserturi premium{" "}
+          <span className="text-brand-gold">
+            pentru momente
+            <br />
+            speciale
           </span>
+        </h1>
 
-          <h1 className="font-serif text-[64px] font-semibold leading-tight text-white">
-            Deserturi premium{" "}
-            <span className="text-brand-gold">
-              pentru momente
-              <br />
-              speciale
-            </span>
-          </h1>
+        <p className="mt-8 text-[22px] font-medium text-neutral-soft">
+          Produse zilnic, din ingrediente naturale, la standarde profesionale
+        </p>
 
-          <p className="mt-8 text-[22px] font-medium text-neutral-soft">
-            Produse zilnic, din ingrediente naturale, la standarde profesionale
-          </p>
-
-          <div className="mt-12 flex flex-row flex-wrap items-center justify-center gap-[50px]">
-            <Button href="/vitrina-live" variant="primary" className="min-w-[204px]">
-              Vezi vitrina live
-              <ChevronRightIcon />
-            </Button>
-            <Button href="/produse-la-comanda" variant="secondary" className="min-w-[204px]">
-              Produse la comandă
-            </Button>
-          </div>
+        <div className="mt-12 flex flex-row flex-wrap items-center justify-center gap-[50px]">
+          <Button href="/vitrina-live" variant="primary" className="min-w-[204px]">
+            Vezi vitrina live
+            <ChevronRightIcon />
+          </Button>
+          <Button href="/produse-la-comanda" variant="secondary" className="min-w-[204px]">
+            Produse la comandă
+          </Button>
         </div>
+      </div>
 
-        <ExploreLink className="absolute bottom-36 left-1/2 z-10 -translate-x-1/2" />
-
-        <div className="absolute inset-x-0 bottom-0">
-          <StatsRow className="max-w-[883px] px-6 py-10" />
-        </div>
+      <div className="absolute inset-x-0 bottom-0 z-10 hidden flex-col items-center gap-6 px-6 pb-6 lg:flex">
+        <StatsRow />
+        <ExploreLink />
       </div>
     </section>
   );
